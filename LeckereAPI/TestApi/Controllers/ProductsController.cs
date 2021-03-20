@@ -8,33 +8,19 @@ using TestApi.Models;
 
 namespace TestApi.Controllers
 {
+    
     public class ProductsController : ControllerBase {
-        FakeForJSON fake = new FakeForJSON();
-
-        [Route("api/GetAllProducts")]
+        public FakeForJSON fake = new FakeForJSON();
+        [Route("api/Product/GetAll")]
         [HttpGet]
         public IEnumerable<Product> GetAll(){
             return fake.products;
         }
-        [Route("api/GetProduct/id:{product_id}")]
-        [HttpGet]
-        public Product FindProduct(int product_id){
-            if(product_id > fake.products.Count){
-                return null;
-            }
-            foreach(Product p in fake.products){
-                if(p.id == product_id){
-                    return p;
-                }
-            }
-            return null;
-        }
 
-        [Route("api/PushProduct")]
+        [Route("api/PostProduct:{json}")]
         [HttpPost]
-        public bool AddProduct(Product p){
-            fake.products.Add(p);
-            return fake.products.Contains(p);
+        public string AddProduct(string json){
+            return json;
         }
     }
 }

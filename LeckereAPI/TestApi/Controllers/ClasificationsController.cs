@@ -16,5 +16,18 @@ namespace TestApi.Controllers
         public IEnumerable<Clasification> GetAll(){
             return fake.clasifications;
         }
+        [Route("api/GetClasification")]
+        [HttpGet]
+        public Clasification Get(int id){
+            foreach(Clasification c in fake.clasifications)
+            {
+                if(c.id == id){
+                    return c;
+                }
+            }
+            return null;
+        }
+
+        
     }
 }
