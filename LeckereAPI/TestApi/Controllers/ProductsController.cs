@@ -15,6 +15,7 @@ namespace TestApi.Controllers
         [HttpGet]
         public IEnumerable<Product> GetAll(){
             return fake.products;
+            //return List
         }
 
         [Route("api/PostProduct:{json}")]
