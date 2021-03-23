@@ -1,0 +1,30 @@
+@host = https://localhost:5001
+GET {{host}}/api/Catalog/Test HTTP/1.1
+###
+GET {{host}}/api/Catalog/GetAll HTTP/1.1
+###
+GET {{host}}/api/Catalog/GetId?id=2 HTTP/1.1
+###
+POST {{host}}/api/Catalog/Post HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":4,
+    "name":"Mamey?"
+}
+### esto parece no funcionar
+@json={"id:3,"name":"Tejuinos"}
+POST {{host}}/api/Catalog/PostJson HTTP/1.1
+Content-Type: application/json
+
+{{json}}
+###
+PUT {{host}}/api/Catalog/Put HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":2,
+    "name":"Morados"
+}
+###
+DELETE {{host}}/api/Catalog/Delete?id=4 HTTP/1.1

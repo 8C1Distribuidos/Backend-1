@@ -8,26 +8,81 @@ using TestApi.Models;
 
 namespace TestApi.Controllers
 {
+    [Route("api/Clasification")]
+    [ApiController]
     public class ClasificationsController : ControllerBase {
-        FakeForJSON fake = new FakeForJSON();
+        FakeForJSON fake = Startup.fake;
+        [HttpGet("Test")]
+        public IActionResult Test(){
+            return Ok("Funcionando");
+        }
 
-        [Route("api/GetAllClasifications")]
-        [HttpGet]
+        [HttpGet("GetAll")]
         public IEnumerable<Clasification> GetAll(){
             return fake.clasifications;
         }
-        [Route("api/GetClasification")]
-        [HttpGet]
-        public Clasification Get(int id){
-            foreach(Clasification c in fake.clasifications)
-            {
+
+        [HttpGet("GetId")]
+        public string GetClasificationgByID(int id){
+            foreach(Clasification c in fake.clasifications){
                 if(c.id == id){
-                    return c;
+                    return JsonHandler<Clasification>.Serialize(c);
                 }
             }
             return null;
         }
 
         
+        [HttpPost("Post")]
+        public bool PostClasification(Clasification newClasification){
+            //Catalog c = JsonHandler<Catalog>.Deserialize(jsonString);
+            foreach (Clasification c in fake.clasifications)
+            {
+                if(c.id == newClasification.id){
+                    return false;
+                }
+            }
+            fake.clasifications.Add(newClasification);
+            return true;
+        }
+        /*USELESS ... maybe
+        [HttpPost("PostJson")]
+        public bool PostClasificationJson(string jsonString ){
+            Clasification newClasification = JsonHandler<Clasification>.Deserialize(jsonString);
+            if(newClasification == null)return false;
+            foreach (Clasification c in fake.clasifications)
+            {
+                if(c.id == newClasification.id){
+                    return false;
+                }
+            }
+            fake.clasifications.Add(newClasification);
+            return true;
+        }
+        */
+        
+        [HttpPut("Put")]
+        public bool PutClasification(Clasification updatedClasification){
+            //Catalog updatedCatalog = JsonHandler<Catalog>.Deserialize(jsonString);
+            foreach(Clasification c in fake.clasifications){
+                if(c.id == updatedClasification.id){
+                    c.name = updatedClasification.name;
+                    c.catalog = updatedClasification.catalog;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        [HttpDelete("Delete")]
+        public bool DeleteClasification(int id){
+            foreach(Clasification c in fake.clasifications){
+                if(c.id == id){
+                    fake.clasifications.Remove(c);
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

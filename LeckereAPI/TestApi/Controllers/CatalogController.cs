@@ -5,43 +5,66 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TestApi.Models;
+using TestApi.Controllers;
 
 namespace TestApi.Controllers
 {
+    
+    [Route("api/Catalog")]
+    [ApiController]
     public class CatalogsController : ControllerBase {
-        FakeForJSON fake = new FakeForJSON();
+        FakeForJSON fake = Startup.fake;
+        [HttpGet("Test")]
+        public IActionResult Test(){
+            return Ok("Funcionando");
+        }
 
-        [Route("api/GetAllCatalogs")]
-        [HttpGet]
+        [HttpGet("GetAll")]
         public IEnumerable<Catalog> GetAll(){
             return fake.catalogs;
         }
-        [Route("api/GetAllCatalogs")]
-        [HttpGet]
-        public Catalog GetCatalogByID(int id){
+
+        [HttpGet("GetId")]
+        public string GetCatalogByID(int id){
             foreach(Catalog c in fake.catalogs){
                 if(c.id == id){
-                    return c;
+                    return JsonHandler<Catalog>.Serialize(c);
                 }
             }
             return null;
         }
 
-        [Route("api/PostCatalog")]
-        [HttpPost]
-        public bool PostCatalog(Catalog c){
-            if(fake.catalogs.Contains(c)){
-                return false;
+        
+        [HttpPost("Post")]
+        public bool PostCatalog(Catalog newCatalog){
+            //Catalog c = JsonHandler<Catalog>.Deserialize(jsonString);
+            foreach (Catalog c in fake.catalogs)
+            {
+                if(c.id == newCatalog.id){
+                    return false;
+                }
             }
-            else{
-                fake.catalogs.Add(c);
-                return true;
+            fake.catalogs.Add(newCatalog);
+            return true;
+        }
+        [HttpPost("PostJson")]
+        public bool PostCatalogJson(string jsonString ){
+            Catalog newCatalog = JsonHandler<Catalog>.Deserialize(jsonString);
+            if(newCatalog == null)return false;
+            foreach (Catalog c in fake.catalogs)
+            {
+                if(c.id == newCatalog.id){
+                    return false;
+                }
             }
+            fake.catalogs.Add(newCatalog);
+            return true;
         }
 
-        [Route("api/PutCatalog")]
-        [HttpPost]
+        
+        [HttpPut("Put")]
         public bool PutCatalog(Catalog updatedCatalog){
+            //Catalog updatedCatalog = JsonHandler<Catalog>.Deserialize(jsonString);
             foreach(Catalog c in fake.catalogs){
                 if(c.id == updatedCatalog.id){
                     c.name = updatedCatalog.name;
@@ -51,8 +74,7 @@ namespace TestApi.Controllers
             return false;
         }
 
-        [Route("api/DeleteCatalog")]
-        [HttpPost]
+        [HttpDelete("Delete")]
         public bool DeleteCatalog(int id){
             foreach(Catalog c in fake.catalogs){
                 if(c.id == id){
