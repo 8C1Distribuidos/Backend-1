@@ -23,7 +23,7 @@ namespace TestApi.Controllers
         }
 
         [HttpGet("GetId")]
-        public string GetProductgByID(int id){
+        public string GetProductByID(int id){
             foreach(Product c in fake.products){
                 if(c.id == id){
                     return JsonHandler<Product>.Serialize(c);
@@ -32,6 +32,40 @@ namespace TestApi.Controllers
             return null;
         }
 
+        [HttpGet("GetClasification")]
+        public IEnumerable<Product> GetProductByClasification(string clasification){
+            bool isThere = false;
+            foreach(Clasification c in fake.clasifications){
+                if(c.name == clasification){
+                    isThere=true;
+                }
+            }
+            if(!isThere)return null;
+            List<Product> productsWithClasisfication = new List<Product>();
+            foreach(Product c in fake.products){
+                if(c.clasification.name == clasification){
+                    productsWithClasisfication.Add(c);
+                }
+            }
+            return productsWithClasisfication;
+        }
+        [HttpGet("GetCatalog")]
+        public IEnumerable<Product> GetProductByCatalog(string catalog){
+            bool isThere = false;
+            foreach(Catalog c in fake.catalogs){
+                if(c.name == catalog){
+                    isThere=true;
+                }
+            }
+            if(!isThere)return null;
+            List<Product> productsWithCatalog = new List<Product>();
+            foreach(Product c in fake.products){
+                if(c.clasification.catalog.name == catalog){
+                    productsWithCatalog.Add(c);
+                }
+            }
+            return productsWithCatalog;
+        }
         
         [HttpPost("Post")]
         public bool PostProduct(Product newProduct){
