@@ -23,10 +23,11 @@ namespace TestApi.Controllers
         }
 
         [HttpGet("GetId")]
-        public string GetClasificationgByID(int id){
+        public Clasification GetClasificationgByID(int id){
             foreach(Clasification c in fake.clasifications){
                 if(c.id == id){
-                    return JsonHandler<Clasification>.Serialize(c);
+                    //return JsonHandler<Clasification>.Serialize(c);
+                    return c;
                 }
             }
             return null;

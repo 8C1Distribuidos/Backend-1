@@ -25,10 +25,11 @@ namespace TestApi.Controllers
         }
 
         [HttpGet("GetId")]
-        public string GetCatalogByID(int id){
+        public Catalog GetCatalogByID(int id){
             foreach(Catalog c in fake.catalogs){
                 if(c.id == id){
-                    return JsonHandler<Catalog>.Serialize(c);
+                    //return JsonHandler<Catalog>.Serialize(c);
+                    return c;
                 }
             }
             return null;

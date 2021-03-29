@@ -23,10 +23,11 @@ namespace TestApi.Controllers
         }
 
         [HttpGet("GetId")]
-        public string GetProductByID(int id){
+        public Product GetProductByID(int id){
             foreach(Product c in fake.products){
                 if(c.id == id){
-                    return JsonHandler<Product>.Serialize(c);
+                    //return JsonHandler<Product>.Serialize(c);
+                    return c;
                 }
             }
             return null;
