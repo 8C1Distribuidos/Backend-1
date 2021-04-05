@@ -80,5 +80,27 @@ namespace TestApi.Controllers
             return false;
         }
         */
+
+        [HttpPost("Post")]
+        public ActionResult<Category> PostCategory(Category newCategory){
+            Category c = DatabaseConsumer<Category>.Post(url,JsonHandler<Category>.Serialize(newCategory));
+            if(c!=null) return Ok(c);
+            return NotFound();
+        }
+        
+        [HttpPut("Put")]
+        public ActionResult<Category> PutCategory(Category updatedCategory){
+            Category c = DatabaseConsumer<Category>.Put(url,JsonHandler<Category>.Serialize(updatedCategory));
+            if(c==null) return Ok(c);
+            return NotFound();
+        }
+        
+
+        [HttpDelete("Delete")]
+        public ActionResult<Category> DeleteCategory(int id){
+            bool c = DatabaseConsumer<Category>.Delete(url + $"?id={id}");
+            if(c) return Ok("Category eliminated");
+            return NotFound();
+        }
     }
 }
