@@ -65,46 +65,28 @@ namespace TestApi.Controllers
             }
             return productsWithCatalog;
         }
-        
+        */
         [HttpPost("Post")]
-        public bool PostProduct(Product newProduct){
-            //Catalog c = JsonHandler<Catalog>.Deserialize(jsonString);
-            foreach (Product c in fake.products)
-            {
-                if(c.id == newProduct.id){
-                    return false;
-                }
-            }
-            fake.products.Add(newProduct);
-            return true;
+        public ActionResult<Product> PostProduct(Product newProduct){
+            Product p = DatabaseConsumer<Product>.Post(url,JsonHandler<Product>.Serialize(newProduct));
+            if(p!=null) return Ok(p);
+            return NotFound();
         }
-
+        
         [HttpPut("Put")]
-        public bool PutProduct(Product updatedProduct){
-            //Catalog updatedCatalog = JsonHandler<Catalog>.Deserialize(jsonString);
-            foreach(Product c in fake.products){
-                if(c.id == updatedProduct.id){
-                    c.name = updatedProduct.name;
-                    c.image = updatedProduct.image;
-                    c.stock = updatedProduct.stock;
-                    c.cost = updatedProduct.cost;
-                    c.clasification = updatedProduct.clasification;
-                    return true;
-                }
-            }
-            return false;
+        public ActionResult<Product> PutProduct(Product updatedProduct){
+            Product p = DatabaseConsumer<Product>.Put(url,JsonHandler<Product>.Serialize(updatedProduct));
+            if(p!=null) return Ok(p);
+            return NotFound();
         }
+        
 
         [HttpDelete("Delete")]
-        public bool DeleteProduct(int id){
-            foreach(Product c in fake.products){
-                if(c.id == id){
-                    fake.products.Remove(c);
-                    return true;
-                }
-            }
-            return false;
+        public ActionResult<Product> DeleteProduct(int id){
+            bool p = DatabaseConsumer<Product>.Delete(url + $"?id={id}");
+            if(p) return Ok("Product eliminated");
+            return NotFound();
         }
-        */
+        
     }
 }
