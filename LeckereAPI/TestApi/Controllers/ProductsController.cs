@@ -5,34 +5,32 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TestApi.Models;
+using TestApi.Controllers;
 
 namespace TestApi.Controllers
 {
     [Route("api/Product")]
     [ApiController]
     public class ProductsController : ControllerBase {
-        FakeForJSON fake = Startup.fake;
+        string url = "http://localhost:9081/products";
+        //FakeForJSON fake = Startup.fake;
         [HttpGet("Test")]
         public IActionResult Test(){
             return Ok("Funcionando");
         }
-
         [HttpGet("GetAll")]
         public IEnumerable<Product> GetAll(){
-            return fake.products;
-        }
-
-        [HttpGet("GetId")]
-        public Product GetProductByID(int id){
-            foreach(Product c in fake.products){
-                if(c.id == id){
-                    //return JsonHandler<Product>.Serialize(c);
-                    return c;
-                }
-            }
+            IEnumerable<Product> p = DatabaseConsumer<Product>.GetAll(url);
+            if(p!=null) return p;
             return null;
         }
-
+        [HttpGet("GetId")]
+        public ActionResult<Product> GetProductByID(int id){
+            Product p = DatabaseConsumer<Product>.Get(url + $"/find?id={id}");
+            if(p!=null) return Ok(p);
+            return NotFound();
+        }
+        /*
         [HttpGet("GetClasification")]
         public IEnumerable<Product> GetProductByClasification(string clasification){
             bool isThere = false;
@@ -107,5 +105,6 @@ namespace TestApi.Controllers
             }
             return false;
         }
+        */
     }
 }

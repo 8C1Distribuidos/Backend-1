@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using TestApi.Models;
 
 namespace TestApi.Controllers{
+    /*
     public class FakeForJSON{
+        
         public List<Catalog> catalogs = new List<Catalog>{
             new Catalog{
                 id=1,
@@ -202,4 +204,5 @@ namespace TestApi.Controllers{
             }
         };
     }
+    */
 }

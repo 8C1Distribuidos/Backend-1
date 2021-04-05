@@ -16,7 +16,7 @@ namespace TestApi
 {
     public class Startup
     {
-        public static FakeForJSON fake = new FakeForJSON();
+        //public static FakeForJSON fake = new FakeForJSON();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

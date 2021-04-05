@@ -8,45 +8,39 @@ using TestApi.Models;
 
 namespace TestApi.Controllers
 {
-    [Route("api/Clasification")]
+    [Route("api/Category")]
     [ApiController]
-    public class ClasificationsController : ControllerBase {
-        FakeForJSON fake = Startup.fake;
+    public class CategoriesController : ControllerBase {
+        string url = "http://localhost:9081/categories";
+        //FakeForJSON fake = Startup.fake;
         [HttpGet("Test")]
         public IActionResult Test(){
             return Ok("Funcionando");
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<Clasification> GetAll(){
-            return fake.clasifications;
-        }
-
-        [HttpGet("GetId")]
-        public Clasification GetClasificationgByID(int id){
-            foreach(Clasification c in fake.clasifications){
-                if(c.id == id){
-                    //return JsonHandler<Clasification>.Serialize(c);
-                    return c;
-                }
-            }
+        public IEnumerable<Category> GetAll(){
+            IEnumerable<Category> c = DatabaseConsumer<Category>.GetAll(url);
+            if(c!=null)return c;
             return null;
         }
 
-        
-        [HttpPost("Post")]
-        public bool PostClasification(Clasification newClasification){
-            //Catalog c = JsonHandler<Catalog>.Deserialize(jsonString);
-            foreach (Clasification c in fake.clasifications)
-            {
-                if(c.id == newClasification.id){
-                    return false;
-                }
+        [HttpGet("GetId")]
+        public ActionResult<Category> GetClasificationgByID(int id){
+            Category c = DatabaseConsumer<Category>.Get(url +$"/find?id={id}");
+            if(c!=null){
+                return Ok(c);
             }
-            fake.clasifications.Add(newClasification);
-            return true;
+            return NotFound();
         }
-        /*USELESS ... maybe
+
+        /*
+        [HttpPost("Post")]
+        public bool PostClasification(Category newClasification){
+            //Catalog c = JsonHandler<Catalog>.Deserialize(jsonString);
+            
+        }
+        USELESS ... maybe
         [HttpPost("PostJson")]
         public bool PostClasificationJson(string jsonString ){
             Clasification newClasification = JsonHandler<Clasification>.Deserialize(jsonString);
@@ -60,7 +54,7 @@ namespace TestApi.Controllers
             fake.clasifications.Add(newClasification);
             return true;
         }
-        */
+        
         
         [HttpPut("Put")]
         public bool PutClasification(Clasification updatedClasification){
@@ -85,5 +79,6 @@ namespace TestApi.Controllers
             }
             return false;
         }
+        */
     }
 }

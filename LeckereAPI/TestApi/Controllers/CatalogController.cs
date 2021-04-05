@@ -13,7 +13,7 @@ namespace TestApi.Controllers
     [Route("api/Catalog")]
     [ApiController]
     public class CatalogsController : ControllerBase {
-        FakeForJSON fake = Startup.fake;
+        //FakeForJSON fake = Startup.fake;
         [HttpGet("Test")]
         public IActionResult Test(){
             return Ok("Funcionando");
@@ -21,21 +21,15 @@ namespace TestApi.Controllers
 
         [HttpGet("GetAll")]
         public IEnumerable<Catalog> GetAll(){
-            return fake.catalogs;
+            return null;
         }
 
         [HttpGet("GetId")]
         public Catalog GetCatalogByID(int id){
-            foreach(Catalog c in fake.catalogs){
-                if(c.id == id){
-                    //return JsonHandler<Catalog>.Serialize(c);
-                    return c;
-                }
-            }
             return null;
         }
 
-        
+        /*
         [HttpPost("Post")]
         public bool PostCatalog(Catalog newCatalog){
             //Catalog c = JsonHandler<Catalog>.Deserialize(jsonString);
@@ -85,5 +79,6 @@ namespace TestApi.Controllers
             }
             return false;
         }
+        */
     }
 }
