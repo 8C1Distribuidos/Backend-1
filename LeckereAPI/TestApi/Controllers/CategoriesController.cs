@@ -34,53 +34,6 @@ namespace TestApi.Controllers
             return NotFound();
         }
 
-        /*
-        [HttpPost("Post")]
-        public bool PostClasification(Category newClasification){
-            //Catalog c = JsonHandler<Catalog>.Deserialize(jsonString);
-            
-        }
-        USELESS ... maybe
-        [HttpPost("PostJson")]
-        public bool PostClasificationJson(string jsonString ){
-            Clasification newClasification = JsonHandler<Clasification>.Deserialize(jsonString);
-            if(newClasification == null)return false;
-            foreach (Clasification c in fake.clasifications)
-            {
-                if(c.id == newClasification.id){
-                    return false;
-                }
-            }
-            fake.clasifications.Add(newClasification);
-            return true;
-        }
-        
-        
-        [HttpPut("Put")]
-        public bool PutClasification(Clasification updatedClasification){
-            //Catalog updatedCatalog = JsonHandler<Catalog>.Deserialize(jsonString);
-            foreach(Clasification c in fake.clasifications){
-                if(c.id == updatedClasification.id){
-                    c.name = updatedClasification.name;
-                    c.catalog = updatedClasification.catalog;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        [HttpDelete("Delete")]
-        public bool DeleteClasification(int id){
-            foreach(Clasification c in fake.clasifications){
-                if(c.id == id){
-                    fake.clasifications.Remove(c);
-                    return true;
-                }
-            }
-            return false;
-        }
-        */
-
         [HttpPost("Post")]
         public ActionResult<Category> PostCategory(Category newCategory){
             Category c = DatabaseConsumer<Category>.Post(url,JsonHandler<Category>.Serialize(newCategory));
@@ -91,7 +44,7 @@ namespace TestApi.Controllers
         [HttpPut("Put")]
         public ActionResult<Category> PutCategory(Category updatedCategory){
             Category c = DatabaseConsumer<Category>.Put(url,JsonHandler<Category>.Serialize(updatedCategory));
-            if(c==null) return Ok(c);
+            if(c!=null) return Ok(c);
             return NotFound();
         }
         

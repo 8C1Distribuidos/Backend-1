@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Vp+wrRXC4fgJhwgI3x7mkcBL6dQtM5oLfRNGNqGmnMRokZKDkBagvL4c2w9zFKV7W9z7DerFLkdSemiJDtPOWQ==",
+  "dgSpecHash": "eAR3WRgUslvpX8eiy39x7H6+rafK6zKbCb2hL+f15ELD47yu3x4oXAMII1L4b9l6Pj4sHXBUxynx6vA7TP3wdg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\redcl\\GitHub\\Backend-1\\LeckereAPI\\TestApi\\TestApi.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\redcl\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\redcl\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.10\\microsoft.netcore.app.host.win-x64.3.1.10.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\Santi\\OneDrive\\Documentos\\GitHub\\Backend-1\\LeckereAPI\\TestApi\\TestApi.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

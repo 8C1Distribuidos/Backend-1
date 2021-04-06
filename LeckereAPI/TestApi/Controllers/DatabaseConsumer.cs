@@ -143,8 +143,8 @@ namespace TestApi.Controllers
             }
             catch (WebException ex)
             {
-                System.Console.WriteLine($"URL: {url}:");
-                System.Console.WriteLine($"Data: {data}:");
+                System.Console.WriteLine($"URL: {url}");
+                System.Console.WriteLine($"Data: {data}");
                 System.Console.WriteLine(ex.Message);
                 return default(T);
             }
