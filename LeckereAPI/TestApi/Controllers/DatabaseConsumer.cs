@@ -70,6 +70,38 @@ namespace TestApi.Controllers
             }
         }
 
+        static public IEnumerable<T> GetList(string url)
+        {
+            HttpWebRequest request;
+            
+            request = (HttpWebRequest) WebRequest.Create(url);
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream strReader = response.GetResponseStream())
+                    {
+                        if (strReader == null) return null;
+                            using (StreamReader objReader = new StreamReader(strReader))
+                            {
+                                string responseBody = objReader.ReadToEnd();
+                                IEnumerable<T> resp = JsonHandler<IEnumerable<T>>.Deserialize(responseBody);
+                                return resp;
+                            }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                System.Console.WriteLine($"URL{url}:");
+                System.Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
         static public T Put(string url,string data)
         {
             HttpWebRequest request;

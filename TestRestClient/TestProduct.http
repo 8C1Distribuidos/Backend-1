@@ -5,6 +5,8 @@ GET {{host}}/GetAll HTTP/1.1
 ###
 GET {{host}}/GetId?id=1 HTTP/1.1
 ###
+GET {{host}}/GetList?ids=10&ids=12 HTTP/1.1
+###
 GET {{host}}/GetClasification?clasification=Vodka HTTP/1.1
 ###
 GET {{host}}/GetCatalog?catalog=Destilados HTTP/1.1

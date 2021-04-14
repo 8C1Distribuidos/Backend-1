@@ -24,6 +24,18 @@ namespace TestApi.Controllers
             if(p!=null) return p;
             return null;
         }
+        [HttpGet("GetList")]
+        public IEnumerable<Product> GetList([FromQuery(Name = "ids")] int[] ids){
+            
+            List<Product> p = new List<Product>();
+            for(int i=0;i<ids.Length;i++){
+                Product product = DatabaseConsumer<Product>.Get(url + $"/find?id={ids[i]}");
+                if(product!=null) p.Add(product);
+            }
+            if(p.Count>0) return p;
+            return null;
+            
+        }
         [HttpGet("GetId")]
         public ActionResult<Product> GetProductByID(int id){
             Product p = DatabaseConsumer<Product>.Get(url + $"/find?id={id}");
