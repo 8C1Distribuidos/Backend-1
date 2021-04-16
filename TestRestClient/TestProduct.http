@@ -3,7 +3,7 @@ GET {{host}}/Test HTTP/1.1
 ###
 GET {{host}}/GetAll HTTP/1.1
 ###
-GET {{host}}/GetId?id=1 HTTP/1.1
+GET {{host}}/GetId?id=3 HTTP/1.1
 ###
 GET {{host}}/GetList?ids=10&ids=12 HTTP/1.1
 ###
