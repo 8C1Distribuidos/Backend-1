@@ -18,3 +18,5 @@ C:\Users\Santi\OneDrive\Documentos\GitHub\Backend-1\LeckereAPI\BackEnd1API\obj\D
 C:\Users\Santi\OneDrive\Documentos\GitHub\Backend-1\LeckereAPI\BackEnd1API\obj\Debug\netcoreapp3.1\BackEnd1API.dll
 C:\Users\Santi\OneDrive\Documentos\GitHub\Backend-1\LeckereAPI\BackEnd1API\obj\Debug\netcoreapp3.1\BackEnd1API.pdb
 C:\Users\Santi\OneDrive\Documentos\GitHub\Backend-1\LeckereAPI\BackEnd1API\obj\Debug\netcoreapp3.1\BackEnd1API.genruntimeconfig.cache
+C:\Users\Santi\OneDrive\Documentos\GitHub\Backend-1\LeckereAPI\BackEnd1API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Santi\OneDrive\Documentos\GitHub\Backend-1\LeckereAPI\BackEnd1API\obj\Debug\netcoreapp3.1\BackEnd1API.csproj.CopyComplete

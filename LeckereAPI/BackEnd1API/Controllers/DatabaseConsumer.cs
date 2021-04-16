@@ -2,6 +2,9 @@ using BackEnd1API.Models;
 using System.Net;
 using System.IO;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+
+
 
 namespace BackEnd1API.Controllers
 {
@@ -38,7 +41,43 @@ namespace BackEnd1API.Controllers
                 return default(T);
             }
         }
-        
+        static public IEnumerable<T> GetAllProducts(string url)
+        {
+            HttpWebRequest request;
+            
+            request = (HttpWebRequest) WebRequest.Create(url);
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream strReader = response.GetResponseStream())
+                    {
+                        if (strReader == null) return null;
+                            using (StreamReader objReader = new StreamReader(strReader))
+                            {
+                                var read = objReader.ReadToEnd();
+                                JObject jsonResponse = JObject.Parse(read);
+                                JArray objResponse = (JArray)jsonResponse["content"];
+                                T[] respArray = new T[objResponse.Count];
+                                for(int i=0;i<respArray.Length-1;i++){
+                                    respArray[i] = objResponse[i].ToObject<T>();
+                                }
+                                IEnumerable<T> resp = respArray;
+                                return resp;
+                            }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                System.Console.WriteLine($"URL{url}:");
+                System.Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
         static public IEnumerable<T> GetAll(string url)
         {
             HttpWebRequest request;
