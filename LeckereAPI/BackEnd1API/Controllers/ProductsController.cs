@@ -20,7 +20,7 @@ namespace BackEnd1API.Controllers
         }
         [HttpGet("GetAll")]
         public IEnumerable<Product> GetAll(){
-            IEnumerable<Product> p = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=100");
+            IEnumerable<Product> p = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
             if(p!=null) return p;
             return null;
         }

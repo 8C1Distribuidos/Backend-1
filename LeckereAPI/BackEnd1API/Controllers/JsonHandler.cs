@@ -6,6 +6,7 @@ namespace BackEnd1API.Controllers
     {
         public static string Serialize(T obj)
         {
+            
             return JsonSerializer.Serialize(obj);
         }
 
