@@ -42,42 +42,36 @@ namespace BackEnd1API.Controllers
             if(p!=null) return Ok(p);
             return NotFound();
         }
-        /*
-        [HttpGet("GetClasification")]
-        public IEnumerable<Product> GetProductByClasification(string clasification){
+
+        [HttpGet("GetByCategory")]
+        public ActionResult<IEnumerable<Product>> GetProductByClasification(string category){
+            IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
+            List<Product> productsWithCategory = new List<Product>();
             bool isThere = false;
-            foreach(Clasification c in fake.clasifications){
-                if(c.name == clasification){
+            foreach(Product p in products){
+                if(p.category.name == category){
                     isThere=true;
+                    productsWithCategory.Add(p);
                 }
             }
-            if(!isThere)return null;
-            List<Product> productsWithClasisfication = new List<Product>();
-            foreach(Product c in fake.products){
-                if(c.clasification.name == clasification){
-                    productsWithClasisfication.Add(c);
-                }
-            }
-            return productsWithClasisfication;
+            if(!isThere)NoContent();
+            return Ok(productsWithCategory);
         }
-        [HttpGet("GetCatalog")]
-        public IEnumerable<Product> GetProductByCatalog(string catalog){
-            bool isThere = false;
-            foreach(Catalog c in fake.catalogs){
-                if(c.name == catalog){
-                    isThere=true;
-                }
-            }
-            if(!isThere)return null;
+        [HttpGet("GetByCatalog")]
+        public ActionResult<IEnumerable<Product>> GetProductByCatalog(string catalog){
+            IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
             List<Product> productsWithCatalog = new List<Product>();
-            foreach(Product c in fake.products){
-                if(c.clasification.catalog.name == catalog){
-                    productsWithCatalog.Add(c);
+            bool isThere = false;
+            foreach(Product p in products){
+                if(p.category.catalog.name == catalog){
+                    isThere=true;
+                    productsWithCatalog.Add(p);
                 }
             }
-            return productsWithCatalog;
+            if(!isThere)return NoContent();
+            return Ok(productsWithCatalog);            
         }
-        */
+
         [HttpPost("Post")]
         public ActionResult<Product> PostProduct(Product newProduct){
             Product p = DatabaseConsumer<Product>.Post(url,JsonHandler<Product>.Serialize(newProduct));

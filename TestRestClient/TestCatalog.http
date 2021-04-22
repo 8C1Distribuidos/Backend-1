@@ -1,9 +1,9 @@
-@host = https://localhost:5001
+@host = http://25.98.13.19:5555
 GET {{host}}/api/Catalog/Test HTTP/1.1
 ###
 GET {{host}}/api/Catalog/GetAll HTTP/1.1
 ###
-GET {{host}}/api/Catalog/GetId?id=2 HTTP/1.1
+GET {{host}}/api/Catalog/GetId?id=1 HTTP/1.1
 ###
 POST {{host}}/api/Catalog/Post HTTP/1.1
 Content-Type: application/json
