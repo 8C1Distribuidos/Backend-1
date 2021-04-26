@@ -22,10 +22,11 @@ Content-Type: application/json
 
 {
     "id": 16,
-    "name": "Camaraam",
+    "name": "Alvastos",
     "catalog": {
-      "id": 2
+      "id": 2,
+      "name": "Destilados"
     }
-}
+  }
 ###
 DELETE {{host}}/Delete?id=16 HTTP/1.1

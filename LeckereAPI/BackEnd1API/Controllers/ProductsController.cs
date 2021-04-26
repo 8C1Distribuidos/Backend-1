@@ -42,36 +42,44 @@ namespace BackEnd1API.Controllers
             if(p!=null) return Ok(p);
             return NotFound();
         }
-
-        [HttpGet("GetByCategory")]
-        public ActionResult<IEnumerable<Product>> GetProductByClasification(string category){
-            IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
-            List<Product> productsWithCategory = new List<Product>();
-            bool isThere = false;
-            foreach(Product p in products){
-                if(p.category.name == category){
-                    isThere=true;
-                    productsWithCategory.Add(p);
-                }
-            }
-            if(!isThere)NoContent();
-            return Ok(productsWithCategory);
-        }
+        
         [HttpGet("GetByCatalog")]
-        public ActionResult<IEnumerable<Product>> GetProductByCatalog(string catalog){
+        public ActionResult<IEnumerable<Product>> GetByCatalog(int id){
             IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
-            List<Product> productsWithCatalog = new List<Product>();
-            bool isThere = false;
+            if(products==null) return null;
+            List<Product> result = new List<Product>();
             foreach(Product p in products){
-                if(p.category.catalog.name == catalog){
-                    isThere=true;
-                    productsWithCatalog.Add(p);
+                if(p!=null){
+                    if(p.category !=null && p.category.catalog!=null){
+                        if(p.category.catalog.id.Equals(id)){
+                        //System.Console.WriteLine(p.name + "(" + p.id +")");
+                        //System.Console.WriteLine(p.category.id + ":" + p.category.name);
+                        result.Add(p);
+                        }
+                    }
                 }
             }
-            if(!isThere)return NoContent();
-            return Ok(productsWithCatalog);            
+            return result;
         }
-
+        
+        [HttpGet("GetByCategory")]
+        public IEnumerable<Product> GetByCategory(int id){
+            IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
+            if(products==null) return null;
+            List<Product> result = new List<Product>();
+            foreach(Product p in products){
+                if(p!=null){
+                    if(p.category.id.Equals(id)){
+                        //System.Console.WriteLine(p.name + "(" + p.id +")");
+                        //System.Console.WriteLine(p.category.id + ":" + p.category.name);
+                        result.Add(p);
+                    }
+                    
+                }
+            }
+            return result;
+        }
+        
         [HttpPost("Post")]
         public ActionResult<Product> PostProduct(Product newProduct){
             Product p = DatabaseConsumer<Product>.Post(url,JsonHandler<Product>.Serialize(newProduct));

@@ -62,8 +62,12 @@ namespace BackEnd1API.Controllers
                                 JObject jsonResponse = JObject.Parse(read);
                                 JArray objResponse = (JArray)jsonResponse["content"];
                                 T[] respArray = new T[objResponse.Count];
-                                for(int i=0;i<respArray.Length-1;i++){
-                                    respArray[i] = objResponse[i].ToObject<T>();
+                                for(int i=0;i<objResponse.Count;i++){
+                                    respArray[i] = JsonHandler<T>.Deserialize(objResponse[i].ToString());
+                                    
+                                    //respArray[i] = objResponse[i].ToObject<T>();
+                                    
+                                    
                                 }
                                 IEnumerable<T> resp = respArray;
                                 return resp;

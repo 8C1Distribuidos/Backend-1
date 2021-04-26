@@ -12,6 +12,7 @@ namespace BackEnd1API.Controllers
     [Route("api/Catalog")]
     [ApiController]
     public class CatalogsController : ControllerBase {
+        string url = "http://localhost:9081/catalogs";
         
         [HttpGet("Test")]
         public IActionResult Test(){
@@ -19,13 +20,17 @@ namespace BackEnd1API.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<Catalog> GetAll(){
-            return null;
+        public ActionResult<IEnumerable<Catalog>> GetAll(){
+            IEnumerable<Catalog> c = DatabaseConsumer<Catalog>.GetAll(url);
+            if(c!=null) return Ok(c);
+            return NotFound(c);
         }
 
         [HttpGet("GetId")]
-        public Catalog GetCatalogByID(int id){
-            return null;
+        public ActionResult<Catalog> GetCatalogByID(int id){
+            Catalog c = DatabaseConsumer<Catalog>.Get(url + $"/find?id={id}");
+            if(c!=null) return Ok(c);
+            return NotFound(c);
         }
 
         /*

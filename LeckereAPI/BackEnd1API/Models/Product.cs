@@ -1,3 +1,4 @@
+
 namespace BackEnd1API.Models{
     public class Product{
         public int id { get; set; }

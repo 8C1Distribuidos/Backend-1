@@ -1,52 +1,53 @@
+###@host = http://25.98.13.19:5555/api/product
 @host = https://localhost:5001/api/Product
 GET {{host}}/Test HTTP/1.1
 ###
 GET {{host}}/GetAll HTTP/1.1
 ###
-GET {{host}}/GetId?id=149 HTTP/1.1
+GET {{host}}/GetId?id=152 HTTP/1.1
 ###
 GET {{host}}/GetList?ids=10&ids=12 HTTP/1.1
 ###
-GET {{host}}/GetClasification?clasification=Vodka HTTP/1.1
+GET {{host}}/GetByCatalog?id=2 HTTP/1.1
 ###
-GET {{host}}/GetCatalog?catalog=Destilados HTTP/1.1
+GET {{host}}/GetByCategory?id=4 HTTP/1.1
 ###
 POST {{host}}/Post HTTP/1.1
 Content-Type: application/json
 
 {
-    "id":1,
-    "name":"Juan",
-    "imageLink":"Juan.jpg",
-    "price":239,
-    "stock":50,
-    "category":{
-        "id":1,
-        "name":"Vino Blanco",
-        "catalog":{
-            "id":1,
-            "name":"Vinos"
-        }
+    "id": 1,
+    "name": "Brantini",
+    "imageLink": "Drandoso.gif",
+    "price": 5,
+    "stock": 2,
+    "category": {
+      "id": 8,
+      "name": "Brandy",
+      "catalog": {
+        "id": 2,
+        "name": "Destilados"
+      }
     }
-}
+  }
 ###
 PUT {{host}}/Put HTTP/1.1
 Content-Type: application/json
 
 {
-  "id": 1,
-  "name": "Blue ",
-  "imageLink": "https://vinosamerica.com/wp-content/uploads/2020/10/1530.jpg",
-  "price": 239,
-  "stock": 50,
-  "category": {
-    "id": 1,
-    "name": "Vino Blanco",
-    "catalog": {
-      "id": 1,
-      "name": "Vinos"
+    "id": 152,
+    "name": "Brantini",
+    "imageLink": "Drandoso.gif",
+    "price": 5,
+    "stock": 2,
+    "category": {
+      "id": 8,
+      "name": "Brandy",
+      "catalog": {
+        "id": 2,
+        "name": "Destilados"
+      }
     }
   }
-}
 ###
-DELETE {{host}}/Delete?id=2 HTTP/1.1
+DELETE {{host}}/Delete?id=1 HTTP/1.1
