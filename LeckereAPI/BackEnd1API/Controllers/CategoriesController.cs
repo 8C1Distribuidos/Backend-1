@@ -19,19 +19,34 @@ namespace BackEnd1API.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<Category> GetAll(){
+        public ActionResult<IEnumerable<Category>> GetAll(){
             IEnumerable<Category> c = DatabaseConsumer<Category>.GetAll(url);
-            if(c!=null)return c;
-            return null;
+            if(c!=null)return Ok(c);
+            return NoContent();
         }
 
         [HttpGet("GetId")]
-        public ActionResult<Category> GetClasificationgByID(int id){
+        public ActionResult<Category> GetByID(int id){
             Category c = DatabaseConsumer<Category>.Get(url +$"/find?id={id}");
             if(c!=null){
                 return Ok(c);
             }
             return NotFound();
+        }
+        [HttpGet("GetByCatalog")]
+        public ActionResult<IEnumerable<Category>> GetByCatalog(int id){
+            IEnumerable<Category> c = DatabaseConsumer<Category>.GetAll(url);
+            if(c==null) return NoContent();
+            List<Category> result = new List<Category>();
+            foreach(Category cat in c){
+                if(cat!=null){
+                    if(cat.catalog.id.Equals(id)){
+                        result.Add(cat);
+                    }
+                }
+            }
+            if(result.Count==0)return NoContent();
+            return Ok(result);
         }
 
         [HttpPost("Post")]

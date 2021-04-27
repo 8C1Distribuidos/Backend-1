@@ -19,21 +19,21 @@ namespace BackEnd1API.Controllers
             return Ok("Funcionando");
         }
         [HttpGet("GetAll")]
-        public IEnumerable<Product> GetAll(){
+        public ActionResult<IEnumerable<Product>> GetAll(){
             IEnumerable<Product> p = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
-            if(p!=null) return p;
-            return null;
+            if(p!=null) return Ok(p);
+            return NotFound();
         }
         [HttpGet("GetList")]
-        public IEnumerable<Product> GetList([FromQuery(Name = "ids")] int[] ids){
+        public ActionResult<IEnumerable<Product>> GetList([FromQuery(Name = "ids")] int[] ids){
             
             List<Product> p = new List<Product>();
             for(int i=0;i<ids.Length;i++){
                 Product product = DatabaseConsumer<Product>.Get(url + $"/find?id={ids[i]}");
                 if(product!=null) p.Add(product);
             }
-            if(p.Count>0) return p;
-            return null;
+            if(p.Count>0) return Ok(p);
+            return NotFound();
             
         }
         [HttpGet("GetId")]
@@ -46,7 +46,7 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetByCatalog")]
         public ActionResult<IEnumerable<Product>> GetByCatalog(int id){
             IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
-            if(products==null) return null;
+            if(products==null) return NoContent();
             List<Product> result = new List<Product>();
             foreach(Product p in products){
                 if(p!=null){
@@ -59,13 +59,14 @@ namespace BackEnd1API.Controllers
                     }
                 }
             }
-            return result;
+            if(result.Count==0)return NoContent();
+            return Ok(result);
         }
         
         [HttpGet("GetByCategory")]
-        public IEnumerable<Product> GetByCategory(int id){
+        public ActionResult<IEnumerable<Product>> GetByCategory(int id){
             IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
-            if(products==null) return null;
+            if(products==null) return NotFound();
             List<Product> result = new List<Product>();
             foreach(Product p in products){
                 if(p!=null){
@@ -77,7 +78,8 @@ namespace BackEnd1API.Controllers
                     
                 }
             }
-            return result;
+            if(result.Count==0)return NoContent();
+            return Ok(result);
         }
         
         [HttpPost("Post")]
