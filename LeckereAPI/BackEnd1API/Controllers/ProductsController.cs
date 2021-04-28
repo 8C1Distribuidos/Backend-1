@@ -25,14 +25,12 @@ namespace BackEnd1API.Controllers
             return NotFound();
         }
         [HttpPost("GetList")]
-        public ActionResult<IEnumerable<Product>> GetList(List<int> ids){
+        public ActionResult<IEnumerable<Product>> GetList(int[] ids){
             //int[] ids = JsonHandler<int[]>.Deserialize(product);
-            List<Product> result = new List<Product>();
-            for(int i=0;i<ids.Count;i++){
-                Product p = DatabaseConsumer<Product>.Get(url + $"/find?id={ids[i]}");
-                if(p!=null) result.Add(p);
-            }
-            if(result.Count>0) return Ok(result);
+            string data = JsonHandler<int[]>.Serialize(ids);
+            IEnumerable<Product> result = new List<Product>();
+            result = DatabaseConsumer<Product>.GetList(url + "/find-list",data);
+            if(result.ToList().Count>0) return Ok(result);
             return NotFound();
             
         }

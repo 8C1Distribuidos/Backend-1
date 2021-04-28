@@ -114,14 +114,21 @@ namespace BackEnd1API.Controllers
             }
         }
 
-        static public IEnumerable<T> GetList(string url)
+        static public IEnumerable<T> GetList(string url, string data)
         {
             HttpWebRequest request;
             
             request = (HttpWebRequest) WebRequest.Create(url);
+            request.Method = "POST";
             request.ContentType = "application/json";
             request.Accept = "application/json";
 
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(data);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
             try
             {
                 using (WebResponse response = request.GetResponse())
@@ -140,7 +147,8 @@ namespace BackEnd1API.Controllers
             }
             catch (WebException ex)
             {
-                System.Console.WriteLine($"URL{url}:");
+                System.Console.WriteLine($"URL: {url}");
+                System.Console.WriteLine($"Data: {data}");
                 System.Console.WriteLine(ex.Message);
                 return null;
             }
