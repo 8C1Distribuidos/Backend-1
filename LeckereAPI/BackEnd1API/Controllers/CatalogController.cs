@@ -13,7 +13,7 @@ namespace BackEnd1API.Controllers
     [ApiController]
     public class CatalogsController : ControllerBase {
         string url = "http://localhost:9081/catalogs";
-        
+        //string url = "http://25.4.107.19:9081/catalogs";
         [HttpGet("Test")]
         public IActionResult Test(){
             return Ok("Funcionando");

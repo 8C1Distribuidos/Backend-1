@@ -13,6 +13,8 @@ namespace BackEnd1API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase {
         string url = "http://localhost:9081/products";
+        //string url = "http://25.4.107.19:9081/products";
+
         //FakeForJSON fake = Startup.fake;
         [HttpGet("Test")]
         public IActionResult Test(){
@@ -26,7 +28,6 @@ namespace BackEnd1API.Controllers
         }
         [HttpPost("GetList")]
         public ActionResult<IEnumerable<Product>> GetList(int[] ids){
-            //int[] ids = JsonHandler<int[]>.Deserialize(product);
             string data = JsonHandler<int[]>.Serialize(ids);
             IEnumerable<Product> result = new List<Product>();
             result = DatabaseConsumer<Product>.GetList(url + "/find-list",data);
