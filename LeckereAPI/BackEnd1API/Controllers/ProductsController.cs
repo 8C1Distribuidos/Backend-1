@@ -12,9 +12,9 @@ namespace BackEnd1API.Controllers
     [Route("api/Product")]
     [ApiController]
     public class ProductsController : ControllerBase {
-        string url = "http://localhost:9081/products";
+        //string url = "http://localhost:9081/products";
         //string url = "http://25.4.107.19:9081/products";
-
+        string url = "http://25.16.129.2:9081/products"; //Luigi?
         //FakeForJSON fake = Startup.fake;
         [HttpGet("Test")]
         public IActionResult Test(){

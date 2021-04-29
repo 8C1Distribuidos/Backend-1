@@ -11,9 +11,10 @@ namespace BackEnd1API.Controllers
     [Route("api/Category")]
     [ApiController]
     public class CategoriesController : ControllerBase {
-        string url = "http://localhost:9081/categories";
+        //string url = "http://localhost:9081/categories";
         //string url = "http://25.4.107.19:9081/categories";
-        //FakeForJSON fake = Startup.fake;
+        string url = "http://25.16.129.2:9081/categories"; //luigi
+        
         
         [HttpGet("Test")]
         public IActionResult Test(){
