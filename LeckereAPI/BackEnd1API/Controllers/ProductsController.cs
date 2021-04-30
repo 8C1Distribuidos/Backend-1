@@ -103,5 +103,17 @@ namespace BackEnd1API.Controllers
             return NotFound();
         }
         
+        [HttpPost("UpdateStock")]
+        public ActionResult UpdateStock(ExtProduct[] products){
+            bool isGood = true;
+            for(int i=0;i<products.Length;i++){
+                products[i].stock -= products[i].amaunt;
+                Product p = (Product) products[i];
+                Product res = DatabaseConsumer<Product>.Put(url,JsonHandler<Product>.Serialize(p));
+                if(res==null)isGood = false;
+            }
+            if(!isGood) NotFound("No todos los objetos se actualizaron");
+            return Ok();
+        }
     }
 }
