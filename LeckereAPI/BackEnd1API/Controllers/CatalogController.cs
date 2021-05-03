@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BackEnd1API.Models;
+using System.Net;
+
 
 namespace BackEnd1API.Controllers
 {
@@ -21,17 +23,33 @@ namespace BackEnd1API.Controllers
         }
 
         [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<Catalog>> GetAll(){
-            IEnumerable<Catalog> c = DatabaseConsumer<Catalog>.GetAll(url);
-            if(c!=null) return Ok(c);
-            return NotFound(c);
+        public ActionResult<IEnumerable<Catalog>> GetAll()
+        {
+            try
+            {
+                IEnumerable<Catalog> c = DatabaseConsumer<Catalog>.GetAll(url);
+                if(c!=null) return Ok(c);
+                return NotFound(c);
+            }
+            catch (WebException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet("GetId")]
-        public ActionResult<Catalog> GetCatalogByID(int id){
-            Catalog c = DatabaseConsumer<Catalog>.Get(url + $"/find?id={id}");
-            if(c!=null) return Ok(c);
-            return NotFound(c);
+        public ActionResult<Catalog> GetCatalogByID(int id)
+        {
+            try
+            {
+                Catalog c = DatabaseConsumer<Catalog>.Get(url + $"/find?id={id}");
+                if(c!=null) return Ok(c);
+                return NotFound(c);
+            }
+            catch (WebException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         /*

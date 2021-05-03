@@ -8,11 +8,16 @@ namespace TestApi.Controllers
     {
         static public T Get(string url)
         {
+                System.Console.WriteLine("klñfldskfñsldk");
+
             HttpWebRequest request;
             
             request = (HttpWebRequest) WebRequest.Create(url);
             request.ContentType = "application/json";
             request.Accept = "application/json";
+
+            request.Timeout = 1000;
+            
 
             try
             {
@@ -32,8 +37,9 @@ namespace TestApi.Controllers
             }
             catch (WebException ex)
             {
-                System.Console.WriteLine($"URL{url}:");
-                System.Console.WriteLine(ex.Message);
+                System.Console.WriteLine("klñfldskfñsldk");
+                //System.Console.WriteLine($"URL{url}:");
+                //System.Console.WriteLine(ex.Message);
                 return default(T);
             }
         }

@@ -3,7 +3,7 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-
+using System.Net.Http;
 
 
 namespace BackEnd1API.Controllers
@@ -17,6 +17,8 @@ namespace BackEnd1API.Controllers
             request = (HttpWebRequest) WebRequest.Create(url);
             request.ContentType = "application/json";
             request.Accept = "application/json";
+            
+            
 
             try
             {
@@ -36,9 +38,13 @@ namespace BackEnd1API.Controllers
             }
             catch (WebException ex)
             {
+                /*System.Console.WriteLine(ex.Status);
+
                 System.Console.WriteLine($"URL{url}:");
                 System.Console.WriteLine(ex.Message);
-                return default(T);
+                return default(T);*/
+
+                throw ex;
             }
         }
         static public IEnumerable<T> GetAllProducts(string url)
@@ -77,9 +83,11 @@ namespace BackEnd1API.Controllers
             }
             catch (WebException ex)
             {
-                System.Console.WriteLine($"URL{url}:");
+                /*System.Console.WriteLine($"URL{url}:");
                 System.Console.WriteLine(ex.Message);
-                return null;
+                return null;*/
+
+                throw ex;
             }
         }
         static public IEnumerable<T> GetAll(string url)
@@ -108,9 +116,10 @@ namespace BackEnd1API.Controllers
             }
             catch (WebException ex)
             {
-                System.Console.WriteLine($"URL{url}:");
+                /*System.Console.WriteLine($"URL{url}:");
                 System.Console.WriteLine(ex.Message);
-                return null;
+                return null;*/
+                throw ex;
             }
         }
 
@@ -147,10 +156,12 @@ namespace BackEnd1API.Controllers
             }
             catch (WebException ex)
             {
-                System.Console.WriteLine($"URL: {url}");
+                /*System.Console.WriteLine($"URL: {url}");
                 System.Console.WriteLine($"Data: {data}");
                 System.Console.WriteLine(ex.Message);
-                return null;
+                return null;*/
+
+                throw ex;
             }
         }
 
@@ -187,10 +198,11 @@ namespace BackEnd1API.Controllers
             }
             catch (WebException ex)
             {
-                System.Console.WriteLine($"URL: {url}:");
+                /*System.Console.WriteLine($"URL: {url}:");
                 System.Console.WriteLine($"Data: {data}:");
                 System.Console.WriteLine(ex.Message);
-                return default(T);
+                return default(T);*/
+                throw ex;
             }
         }
 
@@ -227,13 +239,15 @@ namespace BackEnd1API.Controllers
             }
             catch (WebException ex)
             {
-                System.Console.WriteLine($"URL: {url}");
+                /*System.Console.WriteLine($"URL: {url}");
                 System.Console.WriteLine($"Data: {data}");
                 System.Console.WriteLine(ex.Message);
-                return default(T);
+                return default(T);*/
+
+                throw ex;
             }
         }
-        static public bool Delete(string url)
+        static public bool Delete(string url) 
         {
             HttpWebRequest request;
             
@@ -258,10 +272,12 @@ namespace BackEnd1API.Controllers
                 }
             }
             catch (WebException ex)
-            {
+            {/*
                 System.Console.WriteLine($"URL: {url}:");
                 System.Console.WriteLine(ex.Message);
-                return false;
+                return false;*/
+
+                throw ex;
             }
         }
     }

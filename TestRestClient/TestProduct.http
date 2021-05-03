@@ -1,6 +1,6 @@
 ### Se necesita la extension de REST Client para usar las rutas de abajo en vs code
-@host = http://25.98.13.19:5555/api/product
-##@host = https://localhost:5001/api/Product
+#@host = http://25.98.13.19:5555/api/product
+@host = https://localhost:5001/api/Product
 GET {{host}}/Test HTTP/1.1
 ###
 GET {{host}}/GetAll HTTP/1.1

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "PHgI/SnVpBuvhwVLE4zwq4xiqfSQRtRPFQ4BLa4mk4Tcfiboixi+4ctlLkCqk+jU0X1us2vHOYZEaXCkEjd+qg==",
+  "dgSpecHash": "L0ue1Ggjls0Pk/kg1vmEWHOawp/UYFY0mz0n2EoNqhfSyGE5fqZpp3YceDtMpyRAvlh9bVYil50RVHTGnsoGmQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Santi\\OneDrive\\Documentos\\GitHub\\Backend-1\\LeckereAPI\\BackEnd1API\\BackEnd1API.csproj",
+  "projectFilePath": "C:\\Users\\redcl\\GitHub\\Backend-1\\LeckereAPI\\BackEnd1API\\BackEnd1API.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Santi\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\redcl\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\redcl\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\redcl\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.10\\microsoft.netcore.app.host.win-x64.3.1.10.nupkg.sha512"
   ],
   "logs": []
 }
