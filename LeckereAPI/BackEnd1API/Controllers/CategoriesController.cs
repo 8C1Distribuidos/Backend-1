@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,7 @@ namespace BackEnd1API.Controllers
     [Route("api/Category")]
     [ApiController]
     public class CategoriesController : ControllerBase {
-        //string url = "http://localhost:9081/categories";
-        //string url = "http://25.4.107.19:9081/categories";
-        string url = "http://25.16.129.2:9081/categories"; //luigi
+        string url = ConnectionTester.getURL() + "/categories";
         
         
         [HttpGet("Test")]

@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
+using BackEnd1API.Controllers;
+
 namespace BackEnd1API
 {
     public class Startup
@@ -19,6 +21,7 @@ namespace BackEnd1API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ConnectionTester.TestConnections();
         }
 
         public IConfiguration Configuration { get; }
