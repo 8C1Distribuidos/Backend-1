@@ -9,6 +9,7 @@ namespace BackEnd1API.Controllers
 {
     public class DatabaseConsumer<T>
     {
+        
         static public T Get(string url)
         {
             HttpWebRequest request;

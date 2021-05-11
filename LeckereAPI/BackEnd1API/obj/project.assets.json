@@ -48,29 +48,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\redcl\\.nuget\\packages\\": {}
+    "C:\\Users\\Santi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\redcl\\GitHub\\Backend-1\\LeckereAPI\\BackEnd1API\\BackEnd1API.csproj",
+      "projectUniqueName": "C:\\Users\\Santi\\OneDrive\\Documentos\\GitHub\\Backend-1\\LeckereAPI\\BackEnd1API\\BackEnd1API.csproj",
       "projectName": "BackEnd1API",
-      "projectPath": "C:\\Users\\redcl\\GitHub\\Backend-1\\LeckereAPI\\BackEnd1API\\BackEnd1API.csproj",
-      "packagesPath": "C:\\Users\\redcl\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\redcl\\GitHub\\Backend-1\\LeckereAPI\\BackEnd1API\\obj\\",
+      "projectPath": "C:\\Users\\Santi\\OneDrive\\Documentos\\GitHub\\Backend-1\\LeckereAPI\\BackEnd1API\\BackEnd1API.csproj",
+      "packagesPath": "C:\\Users\\Santi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Santi\\OneDrive\\Documentos\\GitHub\\Backend-1\\LeckereAPI\\BackEnd1API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\redcl\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -82,7 +83,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -99,16 +99,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.10, 3.1.10]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.10, 3.1.10]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -117,7 +107,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
       }
     }
   }
