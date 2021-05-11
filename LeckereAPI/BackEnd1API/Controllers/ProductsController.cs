@@ -24,49 +24,73 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<Product>> GetAll()
         {
-            try
-            {
-                IEnumerable<Product> p = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
-                if(p!=null) return Ok(p);
-                return NotFound();   
+            if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
+                try
+                {
+                    IEnumerable<Product> p = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
+                    if(p!=null){
+                        ProductsCache.AddCache(p.ToArray(), url + "?page=0&size=1000");
+                        return Ok(p);
+                    } 
+                    return NotFound();   
+                }
+                catch (WebException ex)
+                {
+                    return NotFound(ex.Message);
+                }
+            }else{
+                return Ok(ProductsCache.GetAll());
             }
-            catch (WebException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            
         }
 
         [HttpPost("GetList")]
         public ActionResult<IEnumerable<Product>> GetList(int[] ids)
         {
-            try
-            {
-                string data = JsonHandler<int[]>.Serialize(ids);
-                IEnumerable<Product> result = new List<Product>();
-                result = DatabaseConsumer<Product>.GetList(url + "/find-list",data);
-                if(result.ToList().Count>0) return Ok(result);
-                return NotFound();
+            string data = JsonHandler<int[]>.Serialize(ids);
+            bool inCache = false;
+            for(int i =0; i<ids.Length; i++){
+                inCache = ProductsCache.ConsultCache(ids[i]);
             }
-            catch (WebException ex)
-            {
-                return NotFound(ex.Message);
+            if(!inCache){
+                try
+                {
+                    IEnumerable<Product> result = new List<Product>();
+                    result = DatabaseConsumer<Product>.GetList(url + "/find-list",data);
+                    if(result.ToList().Count>0){
+                        ProductsCache.AddCache(result.ToArray(),url + "/find-list" + data);
+                        return Ok(result);
+                    } 
+                    return NotFound();
+                }
+                catch (WebException ex)
+                {
+                    return NotFound(ex.Message);
+                }
             }
-            
+            List<Product> r = new List<Product>();
+            for(int i=0; i<ids.Length;i++){
+                r.Add(ProductsCache.Get(i));
+            }
+            return Ok(r);
         }
 
         [HttpGet("GetId")]
         public ActionResult<Product> GetProductByID(int id)
         {
-            try
-            {
-                Product p = DatabaseConsumer<Product>.Get(url + $"/find?id={id}");
-                if(p!=null) return Ok(p);
-                return NotFound();
+            if(!ProductsCache.ConsultCache(id)){
+                try
+                {
+                    Product p = DatabaseConsumer<Product>.Get(url + $"/find?id={id}");
+                    if(p!=null) return Ok(p);
+                    return NotFound();
+                }
+                catch (WebException ex)
+                {
+                    return NotFound(ex.Message);
+                }
             }
-            catch (WebException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            return Ok(ProductsCache.Get(id));
         }
         
         [HttpGet("GetByCatalog")]
