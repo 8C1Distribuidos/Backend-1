@@ -3,7 +3,6 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using System.Net.Http;
 
 
 namespace BackEnd1API.Controllers
@@ -119,6 +118,7 @@ namespace BackEnd1API.Controllers
                 /*System.Console.WriteLine($"URL{url}:");
                 System.Console.WriteLine(ex.Message);
                 return null;*/
+
                 throw ex;
             }
         }
