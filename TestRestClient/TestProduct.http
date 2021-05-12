@@ -1,6 +1,6 @@
 ### Se necesita la extension de REST Client para usar las rutas de abajo en vs code
-#@host = http://25.98.13.19:5555/api/product
-@host = https://localhost:5001/api/Product
+@host = http://25.98.13.19:5555/api/product
+#@host = https://localhost:5001/api/Product
 GET {{host}}/Test HTTP/1.1
 ###
 GET {{host}}/GetAll HTTP/1.1
@@ -43,7 +43,7 @@ Content-Type: application/json
   "name": "Blue nun Riesling 750 ml ",
   "imageLink": "1.jpg",
   "price": 239,
-  "stock": 50,
+  "stock": 1,
   "category": {
     "id": 1,
     "name": "Vino Blanco",
@@ -65,7 +65,7 @@ Content-Type: application/json
   "name": "Blue nun Riesling 750 ml ",
   "imageLink": "1.jpg",
   "price": 239,
-  "stock": 48,
+  "stock": 1,
   "category": {
     "id": 1,
     "name": "Vino Blanco",
@@ -74,22 +74,6 @@ Content-Type: application/json
       "name": "Vinos"
     }
   },
-  "amaunt":2
-},
-{
-  "id": 3,
-  "name": "Pazo Cilleiro Albariño 750 ml",
-  "imageLink": " ",
-  "price": 415,
-  "stock": 50,
-  "category": {
-    "id": 1,
-    "name": "Vino Blanco",
-    "catalog": {
-      "id": 1,
-      "name": "Vinos"
-    }
-  },
-  "amaunt":2
+  "amaunt":1
 }
 ]

@@ -57,7 +57,7 @@ namespace BackEnd1API.Controllers
             }
         }
 
-        public static void IvalidateCache(){
+        public static void InvalidateCache(){
             cache.Clear();
             cachedQueries.Clear();
         }
@@ -68,7 +68,7 @@ namespace BackEnd1API.Controllers
                 System.Console.WriteLine(p.id +" : " + p.name);
                 if(p.id.Equals(id)) return p;
             }
-            IvalidateCache();
+            InvalidateCache();
             System.Console.WriteLine("Error fatal: se perdio la cache");
             return null;
         }

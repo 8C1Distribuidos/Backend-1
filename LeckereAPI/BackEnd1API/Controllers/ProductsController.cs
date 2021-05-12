@@ -151,6 +151,7 @@ namespace BackEnd1API.Controllers
         [HttpPost("Post")]
         public ActionResult<Product> PostProduct(Product newProduct)
         {
+            ProductsCache.InvalidateCache();
             try
             {
                 Product p = DatabaseConsumer<Product>.Post(url,JsonHandler<Product>.Serialize(newProduct));
@@ -166,6 +167,7 @@ namespace BackEnd1API.Controllers
         [HttpPut("Put")]
         public ActionResult<Product> PutProduct(Product updatedProduct)
         {
+            ProductsCache.InvalidateCache();
             try
             {
                 Product p = DatabaseConsumer<Product>.Put(url,JsonHandler<Product>.Serialize(updatedProduct));
@@ -182,6 +184,7 @@ namespace BackEnd1API.Controllers
         [HttpDelete("Delete")]
         public ActionResult<Product> DeleteProduct(int id)
         {
+            ProductsCache.InvalidateCache();
             try
             {
                 bool p = DatabaseConsumer<Product>.Delete(url + $"?id={id}");
@@ -197,16 +200,17 @@ namespace BackEnd1API.Controllers
         [HttpPost("UpdateStock")]
         public ActionResult UpdateStock(ExtProduct[] products)
         {
+            
+            ProductsCache.InvalidateCache();
             try
             {
-                bool isGood = true;
+                Product[] products1 = new Product[products.Length];
+                
                 for(int i=0;i<products.Length;i++){
-                    products[i].stock -= products[i].amaunt;
-                    Product p = (Product) products[i];
-                    Product res = DatabaseConsumer<Product>.Put(url,JsonHandler<Product>.Serialize(p));
-                    if(res==null)isGood = false;
+                    products1[i] = DatabaseConsumer<Product>.Get(url + $"/find?id={products[i].id}");
+                    products1[i].stock -= products[i].amount;
+                    DatabaseConsumer<Product>.Put(url,JsonHandler<Product>.Serialize(products1[i]));
                 }
-                if(!isGood) NotFound("No todos los objetos se actualizaron");
                 return Ok();
             }
             catch (WebException ex)

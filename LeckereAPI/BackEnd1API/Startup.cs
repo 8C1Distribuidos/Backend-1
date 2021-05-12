@@ -22,7 +22,7 @@ namespace BackEnd1API
         {
             Configuration = configuration;
             ConnectionTester.TestConnections();
-            ProductsCache.IvalidateCache();
+            ProductsCache.InvalidateCache();
         }
 
         public IConfiguration Configuration { get; }

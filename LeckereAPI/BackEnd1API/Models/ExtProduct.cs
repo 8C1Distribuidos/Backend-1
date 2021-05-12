@@ -1,5 +1,5 @@
 namespace BackEnd1API.Models{
     public class ExtProduct : Product {
-        public int amaunt { get; set; }
+        public int amount { get; set; }
     }
 }
