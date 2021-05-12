@@ -18,7 +18,8 @@ namespace BackEnd1API.Controllers
         string url = ConnectionTester.getURL() + "/products";
         [HttpGet("Test")]
         public IActionResult Test(){
-            return Ok("Funcionando");
+            ProductsCache.InvalidateCache();
+            return Ok("Conexion: " + ConnectionTester.getURL());
         }
 
         [HttpGet("GetAll")]
@@ -47,6 +48,7 @@ namespace BackEnd1API.Controllers
         [HttpPost("GetList")]
         public ActionResult<IEnumerable<Product>> GetList(int[] ids)
         {
+            ProductsCache.InvalidateCache();
             string data = JsonHandler<int[]>.Serialize(ids);
             bool inCache = false;
             for(int i =0; i<ids.Length; i++){
