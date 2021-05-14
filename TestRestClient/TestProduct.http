@@ -5,7 +5,7 @@ GET {{host}}/Test HTTP/1.1
 ###
 GET {{host}}/GetAll HTTP/1.1
 ###
-GET {{host}}/GetId?id=69 HTTP/1.1
+GET {{host}}/GetId?id=2 HTTP/1.1
 ###
 POST {{host}}/GetList HTTP/1.1
 Content-Type: application/json
