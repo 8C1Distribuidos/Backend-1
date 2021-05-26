@@ -27,9 +27,8 @@ namespace BackEnd1API.Controllers
             }
             string filePath = Combine(folderPath,"HistoyLog");
             if(System.IO.File.Exists(filePath)){
-                using(FileStream reader  = System.IO.File.OpenWrite(filePath)){
-                    JsonSerializer serializer = new JsonSerializer();
-                    queries = JsonConvert.DeserializeObject<List<Query>>(reader.ToString());
+                using(StreamWriter writer  = new StreamWriter(filePath,false)){
+                    writer.Write(JsonHandler<List<Query>>.Serialize(queries));
                 }
             }else{
                 System.IO.File.Create(filePath);
