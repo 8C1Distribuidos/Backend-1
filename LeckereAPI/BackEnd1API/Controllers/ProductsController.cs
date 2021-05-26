@@ -98,55 +98,90 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetByCatalog")]
         public ActionResult<IEnumerable<Product>> GetByCatalog(int id)
         {
-            try
-            {
-                IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
-                if(products==null) return NoContent();
+            if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
+                try
+                {
+                    IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
+                    if(products==null) return NoContent();
+                    List<Product> result = new List<Product>();
+                    foreach(Product p in products){
+                        if(p!=null){
+                            if(p.category !=null && p.category.catalog!=null){
+                                if(p.category.catalog.id.Equals(id)){
+                                //System.Console.WriteLine(p.name + "(" + p.id +")");
+                                //System.Console.WriteLine(p.category.id + ":" + p.category.name);
+                                result.Add(p);
+                                }
+                            }
+                        }
+                }
+                if(result.Count==0)return NoContent();
+                return Ok(result);  
+                }
+                catch (WebException ex)
+                {
+                    return NotFound(ex.Message);
+                }
+            }else{
+                List<Product> products = ProductsCache.GetAll();
                 List<Product> result = new List<Product>();
-                foreach(Product p in products){
-                    if(p!=null){
-                        if(p.category !=null && p.category.catalog!=null){
-                            if(p.category.catalog.id.Equals(id)){
-                            //System.Console.WriteLine(p.name + "(" + p.id +")");
-                            //System.Console.WriteLine(p.category.id + ":" + p.category.name);
-                            result.Add(p);
+                    foreach(Product p in products){
+                        if(p!=null){
+                            if(p.category !=null && p.category.catalog!=null){
+                                if(p.category.catalog.id.Equals(id)){
+                                //System.Console.WriteLine(p.name + "(" + p.id +")");
+                                //System.Console.WriteLine(p.category.id + ":" + p.category.name);
+                                result.Add(p);
+                                }
                             }
                         }
                     }
+               if(result.Count==0)return NoContent();
+                    return Ok(result);
                 }
-                if(result.Count==0)return NoContent();
-                return Ok(result);
-            }
-            catch (WebException ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
         
         [HttpGet("GetByCategory")]
         public ActionResult<IEnumerable<Product>> GetByCategory(int id)
         {
-            try
-            {
-                IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
-                if(products==null) return NotFound();
-                List<Product> result = new List<Product>();
-                foreach(Product p in products){
-                    if(p!=null){
-                        if(p.category.id.Equals(id)){
-                            //System.Console.WriteLine(p.name + "(" + p.id +")");
-                            //System.Console.WriteLine(p.category.id + ":" + p.category.name);
-                            result.Add(p);
+            if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
+                try
+                {
+                    IEnumerable<Product> products = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
+                    if(products==null) return NotFound();
+                    List<Product> result = new List<Product>();
+                    foreach(Product p in result){
+                        if(p!=null){
+                            if(p.category.id.Equals(id)){
+                                //System.Console.WriteLine(p.name + "(" + p.id +")");
+                                //System.Console.WriteLine(p.category.id + ":" + p.category.name);
+                                result.Add(p);
+                            }
+                            
                         }
-                        
                     }
+                    if(result.Count==0)return NoContent();
+                    return Ok(result);
                 }
-                if(result.Count==0)return NoContent();
-                return Ok(result);
-            }
-            catch (WebException ex)
-            {
-                return NotFound(ex.Message);
+                catch (WebException ex)
+                {
+                    return NotFound(ex.Message);
+                }
+            }else{
+                List<Product> products = ProductsCache.GetAll();
+                List<Product> result = new List<Product>();
+                    foreach(Product p in products){
+                        if(p!=null){
+                            if(p.category.id.Equals(id)){
+                                //System.Console.WriteLine(p.name + "(" + p.id +")");
+                                //System.Console.WriteLine(p.category.id + ":" + p.category.name);
+                                result.Add(p);
+                            }
+                            
+                        }
+                    }
+                    if(result.Count==0)return NoContent();
+                    return Ok(result);
             }
         }
         
