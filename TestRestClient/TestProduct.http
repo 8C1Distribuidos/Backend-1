@@ -1,6 +1,8 @@
 ### Se necesita la extension de REST Client para usar las rutas de abajo en vs code
-@host = http://25.98.13.19:5555/api/product
-#@host = https://localhost:5001/api/Product
+#@host = http://25.98.13.19:5555/api/product
+@host = https://localhost:5001/api/Product
+GET https://localhost:5001/api/HistotyLog HTTP/1.1
+###
 GET {{host}}/Test HTTP/1.1
 ###
 GET {{host}}/GetAll HTTP/1.1
@@ -39,17 +41,17 @@ PUT {{host}}/Put HTTP/1.1
 Content-Type: application/json
 
 {
-  "id": 69,
-  "name": "Alma de Magno 700 ml ",
-  "imageLink": "69.jpg",
-  "price": 419,
+  "id": 2,
+  "name": "Luigi Bosca Chardonnay 750 ml ",
+  "imageLink": "2.jpg",
+  "price": 485,
   "stock": 1,
   "category": {
-    "id": 8,
-    "name": "Brandy",
+    "id": 1,
+    "name": "Vino Blanco",
     "catalog": {
-      "id": 2,
-      "name": "Destilados"
+      "id": 1,
+      "name": "Vinos"
     }
   }
 }

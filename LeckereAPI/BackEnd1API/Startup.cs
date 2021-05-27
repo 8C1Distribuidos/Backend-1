@@ -23,6 +23,7 @@ namespace BackEnd1API
             Configuration = configuration;
             ConnectionTester.TestConnections();
             ProductsCache.InvalidateCache();
+            HistoryLog.LoadFile();
         }
 
         public IConfiguration Configuration { get; }

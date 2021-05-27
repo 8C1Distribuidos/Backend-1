@@ -17,10 +17,10 @@ namespace BackEnd1API.Controllers
     public class HistoryLog : ControllerBase{
         private static List<Query> queries = new List<Query>();
         [HttpGet]
-        public IActionResult SendLog(){
-            return Ok("Yes");
+        public ActionResult<IEnumerable<Query>> SendLog(){
+            return Ok(queries);
         }
-        public void SaveFile(){
+        public static void SaveFile(){
             string folderPath = Combine((string) GetFolderPath(SpecialFolder.Desktop),"data");
             if(!Directory.Exists(folderPath)){
                 CreateDirectory(folderPath);
@@ -35,7 +35,8 @@ namespace BackEnd1API.Controllers
                 queries = new List<Query>();
             }
         }
-        public void LoadFile(){
+        public static void LoadFile(){
+            queries = new List<Query>();
             string folderPath = Combine((string) GetFolderPath(SpecialFolder.Desktop),"data");
             if(!Directory.Exists(folderPath)){
                 CreateDirectory(folderPath);
@@ -44,16 +45,23 @@ namespace BackEnd1API.Controllers
             if(System.IO.File.Exists(filePath)){
                 using(StreamReader reader  = System.IO.File.OpenText(filePath)){
                     JsonSerializer serializer = new JsonSerializer();
-                    queries = JsonConvert.DeserializeObject<List<Query>>(reader.ToString());
+                    queries = JsonConvert.DeserializeObject<List<Query>>(reader.ReadToEnd());
                 }
             }else{
                 System.IO.File.Create(filePath);
-                queries = new List<Query>();
             }
         }
-        public void AddQuery(Query query){
-            queries.Add(query);
-            SaveFile();
+        public static void AddQuery(Query query){
+            if(query!=null){
+                System.Console.WriteLine(query.date.ToString());
+                System.Console.Write(query.action + " : ");
+                System.Console.WriteLine(query.status);
+                HistoryLog.queries.Add(query);
+                SaveFile();
+                return;
+            }
+            System.Console.WriteLine("Ñooooo");
+            
         }
     }
 }

@@ -25,12 +25,20 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<Product>> GetAll()
         {
+            
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
+                    Query query = new Query("GET","Get all products");
                     IEnumerable<Product> p = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
                     if(p!=null){
                         ProductsCache.AddCache(p.ToArray(), url + "?page=0&size=1000");
+                        query.status = true;
+                        query.date = DateTime.Now;
+                        System.Console.WriteLine(query.date.ToString());
+                        System.Console.Write(query.action + " : ");
+                        System.Console.WriteLine(query.status);
+                        HistoryLog.AddQuery(query);
                         return Ok(p);
                     } 
                     return NotFound();   
