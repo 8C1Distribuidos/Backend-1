@@ -25,26 +25,31 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<Product>> GetAll()
         {
-            
+            Query query = new Query("GET","Get all products");
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
-                    Query query = new Query("GET","Get all products");
                     IEnumerable<Product> p = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
                     if(p!=null){
                         ProductsCache.AddCache(p.ToArray(), url + "?page=0&size=1000");
                         query.status = true;
                         query.date = DateTime.Now;
-                        System.Console.WriteLine(query.date.ToString());
-                        System.Console.Write(query.action + " : ");
-                        System.Console.WriteLine(query.status);
+                        
                         HistoryLog.AddQuery(query);
                         return Ok(p);
-                    } 
+                    }
+                    query.status = false;
+                    query.date = DateTime.Now;
+                    
+                    HistoryLog.AddQuery(query);
                     return NotFound();   
                 }
                 catch (WebException ex)
                 {
+                    query.status = false;
+                    query.date = DateTime.Now;
+                    
+                    HistoryLog.AddQuery(query);
                     return NotFound(ex.Message);
                 }
             }else{
@@ -69,6 +74,7 @@ namespace BackEnd1API.Controllers
                     result = DatabaseConsumer<Product>.GetList(url + "/find-list",data);
                     if(result.ToList().Count>0){
                         ProductsCache.AddCache(result.ToArray(),url + "/find-list" + data);
+                        //add a historylog
                         return Ok(result);
                     } 
                     return NotFound();
@@ -92,7 +98,9 @@ namespace BackEnd1API.Controllers
                 try
                 {
                     Product p = DatabaseConsumer<Product>.Get(url + $"/find?id={id}");
-                    if(p!=null) return Ok(p);
+                    if(p!=null){
+                        return Ok(p);
+                    } 
                     return NotFound();
                 }
                 catch (WebException ex)
