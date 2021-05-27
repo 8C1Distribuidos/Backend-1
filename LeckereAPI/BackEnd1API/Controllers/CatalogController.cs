@@ -23,14 +23,30 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<Catalog>> GetAll()
         {
+            Query query = new Query("GET","Get all catalogs");
             try
             {
                 IEnumerable<Catalog> c = DatabaseConsumer<Catalog>.GetAll(url);
-                if(c!=null) return Ok(c);
+                if(c!=null)
+                {
+                    query.status = "Correcto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                    
+                    HistoryLog.AddQuery(query);
+                    return Ok(c);
+                }
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(c);
             }
             catch (WebException ex)
             {
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
         }
@@ -38,14 +54,30 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetId")]
         public ActionResult<Catalog> GetCatalogByID(int id)
         {
+            Query query = new Query("GET", "Get catalog by id: " + id);
             try
             {
                 Catalog c = DatabaseConsumer<Catalog>.Get(url + $"/find?id={id}");
-                if(c!=null) return Ok(c);
+                if(c!=null)
+                {
+                    query.status = "Correcto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+
+                    HistoryLog.AddQuery(query);
+                    return Ok(c);
+                }
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(c);
             }
             catch (WebException ex)
             {
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
         }
