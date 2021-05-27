@@ -15,7 +15,7 @@ namespace BackEnd1API.Controllers
     [Route("api/HistotyLog")]
     [ApiController]
     public class HistoryLog : ControllerBase{
-        private static List<Query> queries = new List<Query>();
+        private static List<Query> queries;
         [HttpGet]
         public ActionResult<IEnumerable<Query>> SendLog(){
             return Ok(queries);
@@ -29,10 +29,14 @@ namespace BackEnd1API.Controllers
             if(System.IO.File.Exists(filePath)){
                 using(StreamWriter writer  = new StreamWriter(filePath,false)){
                     writer.Write(JsonHandler<List<Query>>.Serialize(queries));
+                    writer.Close();
                 }
             }else{
                 System.IO.File.Create(filePath);
-                queries = new List<Query>();
+                using(StreamWriter writer  = new StreamWriter(filePath,false)){
+                    writer.Write(JsonHandler<List<Query>>.Serialize(queries));
+                    writer.Close();
+                }
             }
         }
         public static void LoadFile(){
@@ -46,16 +50,16 @@ namespace BackEnd1API.Controllers
                 using(StreamReader reader  = System.IO.File.OpenText(filePath)){
                     JsonSerializer serializer = new JsonSerializer();
                     queries = JsonConvert.DeserializeObject<List<Query>>(reader.ReadToEnd());
+                    if(queries == null) queries = new List<Query>();
+                    reader.Close();
                 }
             }else{
                 System.IO.File.Create(filePath);
+                queries = new List<Query>();
             }
         }
         public static void AddQuery(Query query){
             if(query!=null){
-                System.Console.WriteLine(query.date.ToString());
-                System.Console.Write(query.action + " : ");
-                System.Console.WriteLine(query.status);
                 HistoryLog.queries.Add(query);
                 SaveFile();
                 return;
