@@ -61,7 +61,14 @@ namespace BackEnd1API.Controllers
         [HttpPost("GetList")]
         public ActionResult<IEnumerable<Product>> GetList(int[] ids)
         {
-            Query query = new Query("GET","Get lista de productos : " + ids);
+            string pIDS = "";
+            for(int i=0;i<ids.Length;i++){
+                pIDS += ids[i] +"";
+                if(i <ids.Length-1){
+                    pIDS += ",";
+                }
+            }
+            Query query = new Query("GET","Get lista de productos : " + pIDS);
             ProductsCache.InvalidateCache();
             string data = JsonHandler<int[]>.Serialize(ids);
             bool inCache = false;
