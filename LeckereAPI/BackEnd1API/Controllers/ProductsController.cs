@@ -61,6 +61,7 @@ namespace BackEnd1API.Controllers
         [HttpPost("GetList")]
         public ActionResult<IEnumerable<Product>> GetList(int[] ids)
         {
+            Query query = new Query("GET","Get lista de productos : " + ids);
             ProductsCache.InvalidateCache();
             string data = JsonHandler<int[]>.Serialize(ids);
             bool inCache = false;
@@ -94,6 +95,7 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetId")]
         public ActionResult<Product> GetProductByID(int id)
         {
+            Query query = new Query("GET","Get producto de id:" + id);
             if(!ProductsCache.ConsultCache(id)){
                 try
                 {
@@ -114,6 +116,7 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetByCatalog")]
         public ActionResult<IEnumerable<Product>> GetByCatalog(int id)
         {
+            Query query = new Query("GET","Get productos por catalogo:" + id);
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
@@ -160,6 +163,7 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetByCategory")]
         public ActionResult<IEnumerable<Product>> GetByCategory(int id)
         {
+            Query query = new Query("GET","Get productos por categoria:" + id);
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
@@ -204,6 +208,7 @@ namespace BackEnd1API.Controllers
         [HttpPost("Post")]
         public ActionResult<Product> PostProduct(Product newProduct)
         {
+            Query query = new Query("POST","Se creo un nuevo producto");
             ProductsCache.InvalidateCache();
             try
             {
@@ -220,6 +225,7 @@ namespace BackEnd1API.Controllers
         [HttpPut("Put")]
         public ActionResult<Product> PutProduct(Product updatedProduct)
         {
+            Query query = new Query("Put","Se modifico info de un producto id:" + updatedProduct.id);
             ProductsCache.InvalidateCache();
             try
             {
@@ -237,6 +243,7 @@ namespace BackEnd1API.Controllers
         [HttpDelete("Delete")]
         public ActionResult<Product> DeleteProduct(int id)
         {
+            Query query = new Query("DELETE","Se elimino un producto id:" + id);
             ProductsCache.InvalidateCache();
             try
             {
@@ -253,7 +260,14 @@ namespace BackEnd1API.Controllers
         [HttpPost("UpdateStock")]
         public ActionResult UpdateStock(ExtProduct[] products)
         {
-            
+            string pIDs = "";
+            for(int i =0;i<products.Count();i++){
+                pIDs += products[i].id + "";
+                if(i != products.Count()-1){
+                    pIDs += ",";
+                }
+            }
+            Query query = new Query("POST","Se actulizaron los stocks (una compra) de los productos:[" + pIDs + "]");
             ProductsCache.InvalidateCache();
             try
             {
