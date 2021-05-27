@@ -35,14 +35,30 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<Category>> GetAll()
         {
+            Queryable query = new Query("GET", "Get all categories");
             try
             {
                 IEnumerable<Category> c = DatabaseConsumer<Category>.GetAll(url);
-                if(c!=null) return Ok(c);
+                if(c!=null)
+                {
+                    query.status = "Correcto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                    
+                    HistoryLog.AddQuery(query);
+                    return Ok(c);
+                }
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NoContent();
             }
             catch (WebException ex)
             {
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
             
@@ -51,16 +67,30 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetId")]
         public ActionResult<Category> GetByID(int id)
         {
+            Query query = new Query("GET", "Get category by id: " + id);
             try
             {
                 Category c = DatabaseConsumer<Category>.Get(url +$"/find?id={id}");
-                if(c!=null){
+                if(c!=null)
+                {
+                    query.status = "Correcto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                    
+                    HistoryLog.AddQuery(query);
                     return Ok(c);
                 }
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound();
-                }
+            }
             catch (WebException ex)
             {
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
             
@@ -69,6 +99,7 @@ namespace BackEnd1API.Controllers
         [HttpGet("GetByCatalog")]
         public ActionResult<IEnumerable<Category>> GetByCatalog(int id)
         {
+            Query query = new Query("GET", "Get category by cataglog id: " + id);
             try
             {
                 IEnumerable<Category> c = DatabaseConsumer<Category>.GetAll(url);
@@ -81,11 +112,26 @@ namespace BackEnd1API.Controllers
                         }
                     }
                 }
-                if(result.Count==0)return NoContent();
+                if(result.Count==0)
+                {
+                    query.status = "Incorrecto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                    
+                    HistoryLog.AddQuery(query);
+                    return NoContent();
+                }
+                query.status = "Correcto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return Ok(result);
             }
             catch (WebException ex)
             {
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
             
@@ -94,14 +140,30 @@ namespace BackEnd1API.Controllers
         [HttpPost("Post")]
         public ActionResult<Category> PostCategory(Category newCategory)
         {
+            Query query = new Query("POST", "Post category: " + newCategory.name);
             try
             {
                 Category c = DatabaseConsumer<Category>.Post(url,JsonHandler<Category>.Serialize(newCategory));
-                if(c!=null) return Ok(c);
+                if(c!=null)
+                {
+                    query.status = "Correcto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                    
+                    HistoryLog.AddQuery(query);
+                    return Ok(c);
+                }
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound();
             }
             catch (WebException ex)
             {
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
             
@@ -110,14 +172,30 @@ namespace BackEnd1API.Controllers
         [HttpPut("Put")]
         public ActionResult<Category> PutCategory(Category updatedCategory)
         {
+            Query query = new Query("PUT", "Put category: " + updatedCategory.name);
             try
             {
                 Category c = DatabaseConsumer<Category>.Put(url,JsonHandler<Category>.Serialize(updatedCategory));
-                if(c!=null) return Ok(c);
+                if(c!=null)
+                {
+                    query.status = "Correcto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                    
+                    HistoryLog.AddQuery(query);
+                    return Ok(c);
+                }
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound();
             }
             catch (WebException ex)
             {
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
         }
@@ -126,14 +204,30 @@ namespace BackEnd1API.Controllers
         [HttpDelete("Delete")]
         public ActionResult<Category> DeleteCategory(int id)
         {
+            Query query = new Query("DELETE", "Delete category: " + id);
             try
             {
                 bool c = DatabaseConsumer<Category>.Delete(url + $"?id={id}");
-                if(c) return Ok("Category eliminated");
+                if(c)
+                {
+                    query.status = "Correcto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                    
+                    HistoryLog.AddQuery(query);
+                    return Ok("Category eliminated");
+                }
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound();
             }
             catch (WebException ex)
             {
+                query.status = "Incorrecto";
+                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
+                
+                HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
             
