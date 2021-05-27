@@ -33,20 +33,20 @@ namespace BackEnd1API.Controllers
                     if(p!=null){
                         ProductsCache.AddCache(p.ToArray(), url + "?page=0&size=1000");
                         query.status = "Correcto";
-                        query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                        query.date = Query.DateNow();
                         
                         HistoryLog.AddQuery(query);
                         return Ok(p);
                     }
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return NotFound();   
                 }
                 catch (WebException ex)
                 {
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return NotFound(ex.Message);
                 }
@@ -82,19 +82,19 @@ namespace BackEnd1API.Controllers
                         ProductsCache.AddCache(result.ToArray(),url + "/find-list" + data);
                         //add a historylog
                         query.status = "Correcto";
-                        query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                        query.date = Query.DateNow();
                         HistoryLog.AddQuery(query);
                         return Ok(result);
                     } 
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return NotFound();
                 }
                 catch (WebException ex)
                 {
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return NotFound(ex.Message);
                 }
@@ -116,19 +116,19 @@ namespace BackEnd1API.Controllers
                     Product p = DatabaseConsumer<Product>.Get(url + $"/find?id={id}");
                     if(p!=null){
                         query.status = "Correcto";
-                        query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                        query.date = Query.DateNow();
                         HistoryLog.AddQuery(query);
                         return Ok(p);
                     }
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query); 
                     return NotFound();
                 }
                 catch (WebException ex)
                 {
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return NotFound(ex.Message);
                 }
@@ -159,19 +159,19 @@ namespace BackEnd1API.Controllers
                 }
                 if(result.Count==0){
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return NoContent();
                 }
                 query.status = "Correcto";
-                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
                 return Ok(result);  
                 }
                 catch (WebException ex)
                 {
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return NotFound(ex.Message);
                 }
@@ -191,7 +191,7 @@ namespace BackEnd1API.Controllers
                     }
                if(result.Count==0){
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                    return NoContent();
                    }
@@ -221,19 +221,19 @@ namespace BackEnd1API.Controllers
                     }
                     if(result.Count==0){
                         query.status = "Incorrecto";
-                        query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                        query.date = Query.DateNow();
                         HistoryLog.AddQuery(query);
                         return NoContent();
                     }
                     query.status = "Correcto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return Ok(result);
                 }
                 catch (WebException ex)
                 {
                     query.status = "Incorrecto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return NotFound(ex.Message);
                 }
@@ -252,7 +252,7 @@ namespace BackEnd1API.Controllers
                     }
                     if(result.Count==0){
                         query.status = "Incorrecto";
-                        query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                        query.date = Query.DateNow();
                         HistoryLog.AddQuery(query);
                         return NoContent();
                     }
@@ -270,19 +270,19 @@ namespace BackEnd1API.Controllers
                 Product p = DatabaseConsumer<Product>.Post(url,JsonHandler<Product>.Serialize(newProduct));
                 if(p!=null){
                     query.status = "Correcto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return Ok(p);
                 }
                 query.status = "Incorrecto";
-                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
                 return NotFound();
             }
             catch (WebException ex)
             {
                 query.status = "Incorrecto";
-                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
@@ -298,7 +298,7 @@ namespace BackEnd1API.Controllers
                 Product p = DatabaseConsumer<Product>.Put(url,JsonHandler<Product>.Serialize(updatedProduct));
                 if(p!=null){ 
                     query.status = "Correcto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return Ok(p);
                 }
@@ -307,7 +307,7 @@ namespace BackEnd1API.Controllers
             catch (WebException ex)
             {
                 query.status = "Incorrecto";
-                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
@@ -324,7 +324,7 @@ namespace BackEnd1API.Controllers
                 bool p = DatabaseConsumer<Product>.Delete(url + $"?id={id}");
                 if(p){
                     query.status = "Correcto";
-                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                    query.date = Query.DateNow();
                     HistoryLog.AddQuery(query);
                     return Ok("Product eliminated");
                 }  
@@ -333,7 +333,7 @@ namespace BackEnd1API.Controllers
             catch (WebException ex)
             {
                 query.status = "Incorrecto";
-                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
@@ -361,14 +361,14 @@ namespace BackEnd1API.Controllers
                     DatabaseConsumer<Product>.Put(url,JsonHandler<Product>.Serialize(products1[i]));
                 }
                 query.status = "Correcto";
-                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
                 return Ok();
             }
             catch (WebException ex)
             {
                 query.status = "Incorrecto";
-                query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
                 return NotFound(ex.Message);
             }
