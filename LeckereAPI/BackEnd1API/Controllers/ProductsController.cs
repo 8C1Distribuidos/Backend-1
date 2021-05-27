@@ -32,22 +32,22 @@ namespace BackEnd1API.Controllers
                     IEnumerable<Product> p = DatabaseConsumer<Product>.GetAllProducts(url + "?page=0&size=1000");
                     if(p!=null){
                         ProductsCache.AddCache(p.ToArray(), url + "?page=0&size=1000");
-                        query.status = true;
-                        query.date = DateTime.Now;
+                        query.status = "Correcto";
+                        query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
                         
                         HistoryLog.AddQuery(query);
                         return Ok(p);
                     }
-                    query.status = false;
-                    query.date = DateTime.Now;
+                    query.status = "Incorrecto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
                     
                     HistoryLog.AddQuery(query);
                     return NotFound();   
                 }
                 catch (WebException ex)
                 {
-                    query.status = false;
-                    query.date = DateTime.Now;
+                    query.status = "Incorrecto";
+                    query.date = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + " " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + DateTime.Now.Second;
                     
                     HistoryLog.AddQuery(query);
                     return NotFound(ex.Message);
