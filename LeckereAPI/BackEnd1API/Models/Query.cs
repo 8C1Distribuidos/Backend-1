@@ -2,6 +2,9 @@ using System;
 
 namespace BackEnd1API.Models{
     public class Query{
+        public Query(){
+            
+        }
         public Query(string action, string info){
             this.action = action;
             this.info = info;
@@ -11,6 +14,7 @@ namespace BackEnd1API.Models{
             this.action = action;
             this.info = info;
             this.device = "Productos";
+            this.usuario = usuario;
         }
         public string usuario { get; set; }
         public string action { get; set; }
