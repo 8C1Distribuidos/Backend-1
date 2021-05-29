@@ -3,7 +3,13 @@
 @host = https://localhost:5001
 GET {{host}}/api/Catalog/Test HTTP/1.1
 ###
-GET {{host}}/api/Catalog/GetAll HTTP/1.1
+POST {{host}}/api/Catalog/GetAll HTTP/1.1
+Content-Type: application/json
+
+{
+    "usuario":"Santi@hotmail.com",
+    "data":"Mamey?"
+}
 ###
 GET {{host}}/api/Catalog/GetId?id=2 HTTP/1.1
 ###

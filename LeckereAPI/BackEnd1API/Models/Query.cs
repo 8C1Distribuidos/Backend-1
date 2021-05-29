@@ -7,6 +7,11 @@ namespace BackEnd1API.Models{
             this.info = info;
             this.device = "Productos";
         }
+        public Query(string action, string info,string usuario){
+            this.action = action;
+            this.info = info;
+            this.device = "Productos";
+        }
         public string usuario { get; set; }
         public string action { get; set; }
         public string status  { get; set; }

@@ -22,10 +22,10 @@ namespace BackEnd1API.Controllers
             return Ok("Conexion: " + ConnectionTester.getURL());
         }
 
-        [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<Product>> GetAll()
+        [HttpPost("GetAll")]
+        public ActionResult<IEnumerable<Product>> GetAll(Data data)
         {
-            Query query = new Query("GET","Get all products");
+            Query query = new Query("GET","Get all products",data.usuario);
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
