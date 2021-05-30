@@ -20,10 +20,11 @@ namespace BackEnd1API.Controllers
             return Ok("Funcionando");
         }
 
-        [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<Catalog>> GetAll()
+        [HttpPost("GetAll")]
+        public ActionResult<IEnumerable<Catalog>> GetAll(Data data)
         {
             Query query = new Query("GET","Get all catalogs");
+            query.usuario = data.usuario;
             try
             {
                 IEnumerable<Catalog> c = DatabaseConsumer<Catalog>.GetAll(url);

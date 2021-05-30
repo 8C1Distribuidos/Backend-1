@@ -10,7 +10,7 @@ Content-Type: application/json
 
 {
     "usuario":"Santi@hotmail.com",
-    "data":"Mamey?"
+    "data":"Informacion que cura"
 }
 ###
 GET {{host}}/GetId?id=2 HTTP/1.1

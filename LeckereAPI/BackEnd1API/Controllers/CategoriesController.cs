@@ -129,8 +129,9 @@ namespace BackEnd1API.Controllers
         }
 
         [HttpPost("Post")]
-        public ActionResult<Category> PostCategory(Category newCategory)
+        public ActionResult<Category> PostCategory(Data data)
         {
+            Category newCategory = JsonHandler<Category>.Deserialize(data.informacion);
             Query query = new Query("POST", "Post category: " + newCategory.name);
             try
             {
