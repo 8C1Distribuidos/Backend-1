@@ -32,10 +32,11 @@ namespace BackEnd1API.Controllers
         }
         */
 
-        [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<Category>> GetAll()
+        [HttpPost("GetAll")]
+        public ActionResult<IEnumerable<Category>> GetAll(Data data)
         {
             Query query = new Query("GET", "Get all categories");
+            query.usuario = data.usuario;
             try
             {
                 IEnumerable<Category> c = DatabaseConsumer<Category>.GetAll(url);
@@ -61,10 +62,16 @@ namespace BackEnd1API.Controllers
             
         }
 
-        [HttpGet("GetId")]
-        public ActionResult<Category> GetByID(int id)
+        [HttpPost("GetId")]
+        public ActionResult<Category> GetByID(Data data)
         {
+            // puede fallar
+            int id = Int32.Parse(data.informacion);
+            //
+
             Query query = new Query("GET", "Get category by id: " + id);
+            query.usuario = data.usuario;
+
             try
             {
                 Category c = DatabaseConsumer<Category>.Get(url +$"/find?id={id}");
@@ -90,10 +97,16 @@ namespace BackEnd1API.Controllers
             
         }
 
-        [HttpGet("GetByCatalog")]
-        public ActionResult<IEnumerable<Category>> GetByCatalog(int id)
+        [HttpPost("GetByCatalog")]
+        public ActionResult<IEnumerable<Category>> GetByCatalog(Data data)
         {
+            // puede fallar
+            int id = Int32.Parse(data.informacion);
+            //
+
             Query query = new Query("GET", "Get category by cataglog id: " + id);
+            query.usuario = data.usuario;
+            
             try
             {
                 IEnumerable<Category> c = DatabaseConsumer<Category>.GetAll(url);
@@ -133,6 +146,9 @@ namespace BackEnd1API.Controllers
         {
             Category newCategory = JsonHandler<Category>.Deserialize(data.informacion);
             Query query = new Query("POST", "Post category: " + newCategory.name);
+
+            query.usuario = data.usuario;
+
             try
             {
                 Category c = DatabaseConsumer<Category>.Post(url,JsonHandler<Category>.Serialize(newCategory));
@@ -159,9 +175,13 @@ namespace BackEnd1API.Controllers
         }
         
         [HttpPut("Put")]
-        public ActionResult<Category> PutCategory(Category updatedCategory)
+        public ActionResult<Category> PutCategory(Data data)
         {
+            Category updatedCategory = JsonHandler<Category>.Deserialize(data.informacion);
+
             Query query = new Query("PUT", "Put category: " + updatedCategory.name);
+            query.usuario = data.usuario;
+
             try
             {
                 Category c = DatabaseConsumer<Category>.Put(url,JsonHandler<Category>.Serialize(updatedCategory));
@@ -188,9 +208,15 @@ namespace BackEnd1API.Controllers
         
 
         [HttpDelete("Delete")]
-        public ActionResult<Category> DeleteCategory(int id)
+        public ActionResult<Category> DeleteCategory(Data data)
         {
+            // puede fallar
+            int id = Int32.Parse(data.informacion);
+            //
+
             Query query = new Query("DELETE", "Delete category: " + id);
+            query.usuario = data.usuario;
+
             try
             {
                 bool c = DatabaseConsumer<Category>.Delete(url + $"?id={id}");
