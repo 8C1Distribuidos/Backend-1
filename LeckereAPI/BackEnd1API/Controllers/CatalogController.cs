@@ -49,10 +49,15 @@ namespace BackEnd1API.Controllers
             }
         }
 
-        [HttpGet("GetId")]
-        public ActionResult<Catalog> GetCatalogByID(int id)
+        [HttpPost("GetId")]
+        public ActionResult<Catalog> GetCatalogByID(Data data)
         {
+            // puede fallar
+            int id = Int32.Parse(data.informacion);
+            // data
+
             Query query = new Query("GET", "Get catalog by id: " + id);
+            query.usuario = data.usuario;
             try
             {
                 Catalog c = DatabaseConsumer<Catalog>.Get(url + $"/find?id={id}");
