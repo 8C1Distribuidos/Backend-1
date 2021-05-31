@@ -57,18 +57,14 @@ namespace BackEnd1API.Controllers
         }
 
         [HttpPost("GetList")]
-        public ActionResult<IEnumerable<Product>> GetList(int[] ids)
+        public ActionResult<IEnumerable<Product>> GetList(Data data)
         {
-            string pIDS = "";
-            for(int i=0;i<ids.Length;i++){
-                pIDS += ids[i] +"";
-                if(i <ids.Length-1){
-                    pIDS += ",";
-                }
-            }
-            Query query = new Query("GET","Get lista de productos : " + pIDS);
+            string pIDS = data.informacion;
+
+            Query query = new Query("GET","Get lista de productos : " + pIDS,data.usuario);
+            int [] ids = JsonHandler<Int32[]>.Deserialize(data.informacion);
             ProductsCache.InvalidateCache();
-            string data = JsonHandler<int[]>.Serialize(ids);
+            string json = JsonHandler<int[]>.Serialize(ids);
             bool inCache = false;
             for(int i =0; i<ids.Length; i++){
                 inCache = ProductsCache.ConsultCache(ids[i]);
@@ -77,9 +73,9 @@ namespace BackEnd1API.Controllers
                 try
                 {
                     IEnumerable<Product> result = new List<Product>();
-                    result = DatabaseConsumer<Product>.GetList(url + "/find-list",data);
+                    result = DatabaseConsumer<Product>.GetList(url + "/find-list",json);
                     if(result.ToList().Count>0){
-                        ProductsCache.AddCache(result.ToArray(),url + "/find-list" + data);
+                        ProductsCache.AddCache(result.ToArray(),url + "/find-list" + json);
                         //add a historylog
                         query.status = "Correcto";
                         query.date = Query.DateNow();
@@ -106,10 +102,11 @@ namespace BackEnd1API.Controllers
             return Ok(r);
         }
 
-        [HttpGet("GetId")]
-        public ActionResult<Product> GetProductByID(int id)
+        [HttpPost("GetId")]
+        public ActionResult<Product> GetProductByID(Data data)
         {
-            Query query = new Query("GET","Get producto de id:" + id);
+            int id = Int32.Parse(data.informacion);
+            Query query = new Query("GET","Get producto de id:" + id,data.usuario);
             if(!ProductsCache.ConsultCache(id)){
                 try
                 {
@@ -136,10 +133,11 @@ namespace BackEnd1API.Controllers
             return Ok(ProductsCache.Get(id));
         }
         
-        [HttpGet("GetByCatalog")]
-        public ActionResult<IEnumerable<Product>> GetByCatalog(int id)
+        [HttpPost("GetByCatalog")]
+        public ActionResult<IEnumerable<Product>> GetByCatalog(Data data)
         {
-            Query query = new Query("GET","Get productos por catalogo:" + id);
+            int id = Int32.Parse(data.informacion);
+            Query query = new Query("GET","Get productos por catalogo:" + id,data.usuario);
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
@@ -199,10 +197,11 @@ namespace BackEnd1API.Controllers
                 }
         }
         
-        [HttpGet("GetByCategory")]
-        public ActionResult<IEnumerable<Product>> GetByCategory(int id)
+        [HttpPost("GetByCategory")]
+        public ActionResult<IEnumerable<Product>> GetByCategory(Data data)
         {
-            Query query = new Query("GET","Get productos por categoria:" + id);
+            int id = Int32.Parse(data.informacion);
+            Query query = new Query("GET","Get productos por categoria:" + id,data.usuario);
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
@@ -261,9 +260,10 @@ namespace BackEnd1API.Controllers
         }
         
         [HttpPost("Post")]
-        public ActionResult<Product> PostProduct(Product newProduct)
+        public ActionResult<Product> PostProduct(Data data)
         {
-            Query query = new Query("POST","Se creo un nuevo producto");
+            Product newProduct = JsonHandler<Product>.Deserialize(data.informacion);
+            Query query = new Query("POST","Se creo un nuevo producto",data.usuario);
             ProductsCache.InvalidateCache();
             try
             {
@@ -289,9 +289,10 @@ namespace BackEnd1API.Controllers
         }
         
         [HttpPut("Put")]
-        public ActionResult<Product> PutProduct(Product updatedProduct)
+        public ActionResult<Product> PutProduct(Data data )
         {
-            Query query = new Query("Put","Se modifico info de un producto id:" + updatedProduct.id);
+            Product updatedProduct = JsonHandler<Product>.Deserialize(data.informacion);
+            Query query = new Query("Put","Se modifico info de un producto id:" + updatedProduct.id,data.usuario);
             ProductsCache.InvalidateCache();
             try
             {
@@ -315,9 +316,10 @@ namespace BackEnd1API.Controllers
         
 
         [HttpDelete("Delete")]
-        public ActionResult<Product> DeleteProduct(int id)
+        public ActionResult<Product> DeleteProduct(Data data)
         {
-            Query query = new Query("DELETE","Se elimino un producto id:" + id);
+            int id = JsonHandler<Int32>.Deserialize(data.informacion);
+            Query query = new Query("DELETE","Se elimino un producto id:" + id,data.usuario);
             ProductsCache.InvalidateCache();
             try
             {
@@ -340,8 +342,9 @@ namespace BackEnd1API.Controllers
         }
         
         [HttpPost("UpdateStock")]
-        public ActionResult UpdateStock(ExtProduct[] products)
+        public ActionResult UpdateStock(Data data)
         {
+            ExtProduct[] products = JsonHandler<ExtProduct[]>.Deserialize(data.informacion);
             string pIDs = "";
             for(int i =0;i<products.Count();i++){
                 pIDs += products[i].id + "";
