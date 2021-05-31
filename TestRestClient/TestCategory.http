@@ -3,34 +3,51 @@
 @host = https://localhost:5001
 GET {{host}}/api/Category/Test HTTP/1.1
 ###
-GET {{host}}/api/Category/GetAll HTTP/1.1
+POST {{host}}/api/Category/GetAll HTTP/1.1
+Content-Type: application/json
+
+{
+  "usuario":"santi@gmail.com",
+  "informacion":"nada"
+}
 ###
-GET {{host}}/api/Category/GetId?id=16 HTTP/1.1
+POST {{host}}/api/Category/GetId HTTP/1.1
+Content-Type: application/json
+
+{
+  "usuario":"santi@gmail.com",
+  "informacion":"16"
+}
 ###
-GET {{host}}/api/Category/GetByCatalog?id=1 HTTP/1.1
+POST {{host}}/api/Category/GetByCatalog HTTP/1.1
+Content-Type: application/json
+
+{
+  "usuario":"santi@gmail.com",
+  "informacion":"2"
+}
 ###
 POST {{host}}/api/Category/Post HTTP/1.1
 Content-Type: application/json
 
 {
-    "id":16,
-    "name":"Mamey",
-    "catalog":{
-        "id":2,
-        "name":"Destilados"
-    }
+  "usuario":"santi@gmail.com",
+  "informacion":"{\"id\":16,\"name\":\"Mamey\",\"catalog\":{\"id\":2,\"name\":\"Destilados\"}}"
 }
+
 ### 
 PUT {{host}}/api/Category/Put HTTP/1.1
 Content-Type: application/json
 
 {
-    "id": 16,
-    "name": "Alvastos",
-    "catalog": {
-      "id": 2,
-      "name": "Destilados"
-    }
-  }
+  "usuario":"santi@gmail.com",
+  "informacion":"{\"id\":16,\"name\":\"Test\",\"catalog\":{\"id\":2,\"name\":\"Destilados\"}}"
+}
 ###
-DELETE {{host}}/api/Category/Delete?id=16 HTTP/1.1
+DELETE {{host}}/api/Category/Delete HTTP/1.1
+Content-Type: application/json
+
+{
+  "usuario":"santi@gmail.com",
+  "informacion":"16"
+}

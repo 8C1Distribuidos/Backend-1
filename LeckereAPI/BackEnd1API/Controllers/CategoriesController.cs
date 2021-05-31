@@ -21,17 +21,6 @@ namespace BackEnd1API.Controllers
             return Ok("Funcionando");
         }
 
-        /*
-        try
-        {
-            
-        }
-        catch (WebException ex)
-        {
-            return NotFound(ex.Message);
-        }
-        */
-
         [HttpPost("GetAll")]
         public ActionResult<IEnumerable<Category>> GetAll(Data data)
         {
@@ -146,7 +135,6 @@ namespace BackEnd1API.Controllers
         {
             Category newCategory = JsonHandler<Category>.Deserialize(data.informacion);
             Query query = new Query("POST", "Post category: " + newCategory.name);
-
             query.usuario = data.usuario;
 
             try

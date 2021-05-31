@@ -52,8 +52,16 @@ namespace BackEnd1API.Controllers
         [HttpPost("GetId")]
         public ActionResult<Catalog> GetCatalogByID(Data data)
         {
+            int id;
             // puede fallar
-            int id = Int32.Parse(data.informacion);
+            try{
+                 id = Int32.Parse(data.informacion);
+            }catch(FormatException ex){
+                return NotFound(ex.Message);
+            }catch(Exception ex){
+                return NotFound(ex.Message);
+            }
+            
             // data
 
             Query query = new Query("GET", "Get catalog by id: " + id);
