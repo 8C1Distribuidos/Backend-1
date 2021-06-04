@@ -5,23 +5,20 @@ namespace BackEnd1API.Models{
         public Query(){
             
         }
-        public Query(string action, string info){
-            this.action = action;
-            this.info = info;
-            this.device = "Productos";
+        public Query(string description){
+            this.description = description;
+            this.identifier = "Productos";
         }
-        public Query(string action, string info,string usuario){
-            this.action = action;
-            this.info = info;
-            this.device = "Productos";
-            this.usuario = usuario;
+        public Query( string description,string user){
+            this.description = description;
+            this.identifier = "Productos";
+            this.user = user;
         }
-        public string usuario { get; set; }
-        public string action { get; set; }
-        public string status  { get; set; }
-        public string device {get;set;}
         public string date { get; set; }
-        public string info { get; set; }
+        public string description { get; set; }
+        public string status  { get; set; }
+        public string identifier {get;set;}
+        public string user { get; set; }
 
         public static string DateNow(){
             string dateFormated = "";

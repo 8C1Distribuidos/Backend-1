@@ -24,8 +24,8 @@ namespace BackEnd1API.Controllers
         [HttpPost("GetAll")]
         public ActionResult<IEnumerable<Category>> GetAll(Data data)
         {
-            Query query = new Query("GET", "Get all categories");
-            query.usuario = data.usuario;
+            Query query = new Query("Get all categories");
+            query.user = data.usuario;
             try
             {
                 IEnumerable<Category> c = DatabaseConsumer<Category>.GetAll(url);
@@ -58,8 +58,8 @@ namespace BackEnd1API.Controllers
             int id = Int32.Parse(data.informacion);
             //
 
-            Query query = new Query("GET", "Get category by id: " + id);
-            query.usuario = data.usuario;
+            Query query = new Query("Get category by id: " + id);
+            query.user = data.usuario;
 
             try
             {
@@ -93,8 +93,8 @@ namespace BackEnd1API.Controllers
             int id = Int32.Parse(data.informacion);
             //
 
-            Query query = new Query("GET", "Get category by cataglog id: " + id);
-            query.usuario = data.usuario;
+            Query query = new Query("Get category by cataglog id: " + id);
+            query.user = data.usuario;
             
             try
             {
@@ -134,8 +134,8 @@ namespace BackEnd1API.Controllers
         public ActionResult<Category> PostCategory(Data data)
         {
             Category newCategory = JsonHandler<Category>.Deserialize(data.informacion);
-            Query query = new Query("POST", "Post category: " + newCategory.name);
-            query.usuario = data.usuario;
+            Query query = new Query("Post category: " + newCategory.name);
+            query.user = data.usuario;
 
             try
             {
@@ -167,8 +167,8 @@ namespace BackEnd1API.Controllers
         {
             Category updatedCategory = JsonHandler<Category>.Deserialize(data.informacion);
 
-            Query query = new Query("PUT", "Put category: " + updatedCategory.name);
-            query.usuario = data.usuario;
+            Query query = new Query("Put category: " + updatedCategory.name);
+            query.user = data.usuario;
 
             try
             {
@@ -202,8 +202,8 @@ namespace BackEnd1API.Controllers
             int id = Int32.Parse(data.informacion);
             //
 
-            Query query = new Query("DELETE", "Delete category: " + id);
-            query.usuario = data.usuario;
+            Query query = new Query("Delete category: " + id);
+            query.user = data.usuario;
 
             try
             {

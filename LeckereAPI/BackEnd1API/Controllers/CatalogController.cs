@@ -23,8 +23,8 @@ namespace BackEnd1API.Controllers
         [HttpPost("GetAll")]
         public ActionResult<IEnumerable<Catalog>> GetAll(Data data)
         {
-            Query query = new Query("GET","Get all catalogs");
-            query.usuario = data.usuario;
+            Query query = new Query("Get all catalogs");
+            query.user = data.usuario;
             try
             {
                 IEnumerable<Catalog> c = DatabaseConsumer<Catalog>.GetAll(url);
@@ -64,8 +64,8 @@ namespace BackEnd1API.Controllers
             
             // data
 
-            Query query = new Query("GET", "Get catalog by id: " + id);
-            query.usuario = data.usuario;
+            Query query = new Query("Get catalog by id: " + id);
+            query.user = data.usuario;
             try
             {
                 Catalog c = DatabaseConsumer<Catalog>.Get(url + $"/find?id={id}");

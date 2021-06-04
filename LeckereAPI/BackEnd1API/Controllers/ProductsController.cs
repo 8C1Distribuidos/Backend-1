@@ -25,7 +25,7 @@ namespace BackEnd1API.Controllers
         [HttpPost("GetAll")]
         public ActionResult<IEnumerable<Product>> GetAll(Data data)
         {
-            Query query = new Query("GET","Get all products",data.usuario);
+            Query query = new Query("Get all products",data.usuario);
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
@@ -61,7 +61,7 @@ namespace BackEnd1API.Controllers
         {
             string pIDS = data.informacion;
 
-            Query query = new Query("GET","Get lista de productos : " + pIDS,data.usuario);
+            Query query = new Query("Get lista de productos : " + pIDS,data.usuario);
             int [] ids = JsonHandler<Int32[]>.Deserialize(data.informacion);
             ProductsCache.InvalidateCache();
             string json = JsonHandler<int[]>.Serialize(ids);
@@ -106,7 +106,7 @@ namespace BackEnd1API.Controllers
         public ActionResult<Product> GetProductByID(Data data)
         {
             int id = Int32.Parse(data.informacion);
-            Query query = new Query("GET","Get producto de id:" + id,data.usuario);
+            Query query = new Query("Get producto de id:" + id,data.usuario);
             if(!ProductsCache.ConsultCache(id)){
                 try
                 {
@@ -137,7 +137,7 @@ namespace BackEnd1API.Controllers
         public ActionResult<IEnumerable<Product>> GetByCatalog(Data data)
         {
             int id = Int32.Parse(data.informacion);
-            Query query = new Query("GET","Get productos por catalogo:" + id,data.usuario);
+            Query query = new Query("Get productos por catalogo:" + id,data.usuario);
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
@@ -201,7 +201,7 @@ namespace BackEnd1API.Controllers
         public ActionResult<IEnumerable<Product>> GetByCategory(Data data)
         {
             int id = Int32.Parse(data.informacion);
-            Query query = new Query("GET","Get productos por categoria:" + id,data.usuario);
+            Query query = new Query("Get productos por categoria:" + id,data.usuario);
             if(!ProductsCache.ConsultCache(url + "?page=0&size=1000")){
                 try
                 {
@@ -263,7 +263,7 @@ namespace BackEnd1API.Controllers
         public ActionResult<Product> PostProduct(Data data)
         {
             Product newProduct = JsonHandler<Product>.Deserialize(data.informacion);
-            Query query = new Query("POST","Se creo un nuevo producto",data.usuario);
+            Query query = new Query("Se creo un nuevo producto",data.usuario);
             ProductsCache.InvalidateCache();
             try
             {
@@ -292,7 +292,7 @@ namespace BackEnd1API.Controllers
         public ActionResult<Product> PutProduct(Data data )
         {
             Product updatedProduct = JsonHandler<Product>.Deserialize(data.informacion);
-            Query query = new Query("Put","Se modifico info de un producto id:" + updatedProduct.id,data.usuario);
+            Query query = new Query("Se modifico info de un producto id:" + updatedProduct.id,data.usuario);
             ProductsCache.InvalidateCache();
             try
             {
@@ -319,7 +319,7 @@ namespace BackEnd1API.Controllers
         public ActionResult<Product> DeleteProduct(Data data)
         {
             int id = JsonHandler<Int32>.Deserialize(data.informacion);
-            Query query = new Query("DELETE","Se elimino un producto id:" + id,data.usuario);
+            Query query = new Query("Se elimino un producto id:" + id,data.usuario);
             ProductsCache.InvalidateCache();
             try
             {
@@ -352,7 +352,7 @@ namespace BackEnd1API.Controllers
                     pIDs += ",";
                 }
             }
-            Query query = new Query("POST","Se actulizaron los stocks (una compra) de los productos:[" + pIDs + "]");
+            Query query = new Query("Se actulizaron los stocks (una compra) de los productos:[" + pIDs + "]");
             ProductsCache.InvalidateCache();
             try
             {

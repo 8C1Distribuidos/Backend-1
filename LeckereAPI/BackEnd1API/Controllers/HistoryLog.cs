@@ -15,13 +15,18 @@ namespace BackEnd1API.Controllers
     [Route("api/HistotyLog")]
     [ApiController]
     public class HistoryLog : ControllerBase{
+        static string folderPath = Combine(GetCurrentDirectory(),"data");
         private static List<Query> queries;
         [HttpGet]
         public ActionResult<IEnumerable<Query>> SendLog(){
+            LoadFile();
+            if(queries!=null)
             return Ok(queries);
+            else
+            return NotFound("Path:" + folderPath);
         }
         public static void SaveFile(){
-            string folderPath = Combine((string) GetFolderPath(SpecialFolder.Desktop),"data");
+            
             if(!Directory.Exists(folderPath)){
                 CreateDirectory(folderPath);
             }
@@ -41,7 +46,6 @@ namespace BackEnd1API.Controllers
         }
         public static void LoadFile(){
             queries = new List<Query>();
-            string folderPath = Combine((string) GetFolderPath(SpecialFolder.Desktop),"data");
             if(!Directory.Exists(folderPath)){
                 CreateDirectory(folderPath);
             }
