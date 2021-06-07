@@ -43,6 +43,9 @@ namespace BackEnd1API.Controllers
                 System.Console.WriteLine($"URL{url}:");
                 System.Console.WriteLine(ex.Message);
                 return default(T);*/
+                if((int)ex.Status == 502){
+                    System.Console.Write("Luigi flip (exception)");
+                }
 
                 throw ex;
             }
@@ -86,7 +89,9 @@ namespace BackEnd1API.Controllers
                 /*System.Console.WriteLine($"URL{url}:");
                 System.Console.WriteLine(ex.Message);
                 return null;*/
-
+                if((int)ex.Status == 502){
+                    System.Console.Write("Luigi flip (exception)");
+                }
                 throw ex;
             }
         }
@@ -119,7 +124,9 @@ namespace BackEnd1API.Controllers
                 /*System.Console.WriteLine($"URL{url}:");
                 System.Console.WriteLine(ex.Message);
                 return null;*/
-
+                if((int)ex.Status == 502){
+                    System.Console.Write("Luigi flip (exception)");
+                }
                 throw ex;
             }
         }
@@ -161,7 +168,9 @@ namespace BackEnd1API.Controllers
                 System.Console.WriteLine($"Data: {data}");
                 System.Console.WriteLine(ex.Message);
                 return null;*/
-
+                if((int)ex.Status == 502){
+                    System.Console.Write("Luigi flip (exception)");
+                }
                 throw ex;
             }
         }
@@ -203,6 +212,9 @@ namespace BackEnd1API.Controllers
                 System.Console.WriteLine($"Data: {data}:");
                 System.Console.WriteLine(ex.Message);
                 return default(T);*/
+                if((int)ex.Status == 502){
+                    System.Console.Write("Luigi flip (exception)");
+                }
                 throw ex;
             }
         }
@@ -244,7 +256,9 @@ namespace BackEnd1API.Controllers
                 System.Console.WriteLine($"Data: {data}");
                 System.Console.WriteLine(ex.Message);
                 return default(T);*/
-
+                if((int)ex.Status == 502){
+                    System.Console.Write("Luigi flip (exception)");
+                }
                 throw ex;
             }
         }
@@ -277,7 +291,9 @@ namespace BackEnd1API.Controllers
                 System.Console.WriteLine($"URL: {url}:");
                 System.Console.WriteLine(ex.Message);
                 return false;*/
-
+                if((int)ex.Status == 502){
+                    System.Console.Write("Luigi flip (exception)");
+                }
                 throw ex;
             }
         }

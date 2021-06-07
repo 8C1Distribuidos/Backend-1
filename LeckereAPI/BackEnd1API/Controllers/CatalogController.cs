@@ -45,6 +45,15 @@ namespace BackEnd1API.Controllers
                 query.status = "Incorrecto";
                 query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
+                if(ex.Status == WebExceptionStatus.ProtocolError){
+                    var response = ex.Response as HttpWebResponse;
+                    System.Console.WriteLine("StatusCode: " + (int)response.StatusCode);
+                    if(((int)response.StatusCode) == 500){
+                        Response.StatusCode = 504;
+                        return Content("No hay conexion con db \n" + ex.Message);
+                    }
+
+                }
                 return NotFound(ex.Message);
             }
         }
@@ -86,6 +95,15 @@ namespace BackEnd1API.Controllers
                 query.status = "Incorrecto";
                 query.date = Query.DateNow();
                 HistoryLog.AddQuery(query);
+                if(ex.Status == WebExceptionStatus.ProtocolError){
+                    var response = ex.Response as HttpWebResponse;
+                    System.Console.WriteLine("StatusCode: " + (int)response.StatusCode);
+                    if(((int)response.StatusCode) == 500){
+                        Response.StatusCode = 504;
+                        return Content("No hay conexion con db \n" + ex.Message);
+                    }
+
+                }
                 return NotFound(ex.Message);
             }
         }

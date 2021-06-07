@@ -9,9 +9,10 @@ namespace BackEnd1API.Controllers
     public class ConnectionTester{
         private static string[] direcciones = 
         {
+            "http://25.16.129.2:9081" ,//luigi
             "http://localhost:9081",
-            "http://25.4.107.19:9081",
-            "http://25.16.129.2:9081"      //luigi
+            "http://25.4.107.19:9081"
+                 
         };
         static string url;
         public static void TestConnections(){
@@ -32,6 +33,16 @@ namespace BackEnd1API.Controllers
                         
                     }catch(WebException ex){
                         System.Console.WriteLine("Unable to connect with: " + direcciones[i]);
+                        if(ex.Status == WebExceptionStatus.ProtocolError){
+                            var response = ex.Response as HttpWebResponse;
+                            System.Console.WriteLine("StatusCode: " + (int)response.StatusCode);
+                            if(((int)response.StatusCode) == 500){
+                                url = direcciones[i];
+                                isGood=true;
+                                System.Console.WriteLine("Connection succesful with: " + direcciones[i]);
+                            }
+
+                        }
                         System.Console.WriteLine(ex.Message);
                     }
                 }
