@@ -21,7 +21,7 @@ namespace BackEnd1API.Controllers
                 for(int i=0; i<direcciones.Length&&!isGood;i++){
                     try{
                         HttpWebRequest request = (HttpWebRequest) WebRequest.Create(direcciones[i] + "/catalogs");
-                        request.Timeout = 5000;
+                        //request.Timeout = 5000;
                         using(HttpWebResponse response = request.GetResponse() as HttpWebResponse){
                             if(response.StatusCode == HttpStatusCode.OK){
                                 url = direcciones[i];

@@ -20,8 +20,8 @@ namespace BackEnd1API.Controllers
         public IActionResult Test(){
             ProductsCache.InvalidateCache();
             Response.StatusCode = 504;
-            //return Ok("Conexion: " + ConnectionTester.getURL());
-            return Content("Quiero las exxcepciones de luigi uwu");
+            return Content("Conexion: " + ConnectionTester.getURL());
+            //return Content("Quiero las exxcepciones de luigi uwu");
         }
 
         [HttpPost("GetAll")]
